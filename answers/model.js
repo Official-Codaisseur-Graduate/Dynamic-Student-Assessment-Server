@@ -16,4 +16,4 @@ correct:
 }
 })
 
-module.exports = Answer
+module.exports = Answer;
