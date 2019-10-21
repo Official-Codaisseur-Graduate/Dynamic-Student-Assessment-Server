@@ -1,7 +1,7 @@
 const Sequelize = require('sequelize')
 const db = require('../db')
 const Answer = require('../answers/model')
-// const Category = require('../Caterogry/model')
+// const Category = require('../Category/model')
 
 const Question = db.define('question', {
     content: {
