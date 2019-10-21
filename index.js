@@ -5,9 +5,11 @@ const bodyParser = require('body-parser')
 const jsonParser = bodyParser.json()
 const cors = require('cors')
 const corsMiddleware = cors()
+const answersRouter = require('./answers/router')
 
 app.use(corsMiddleware)
 app.use(jsonParser)
+app.use(answersRouter)
 
 function onListen() {
   console.log(`Server running on port ${port}`)
