@@ -16,4 +16,4 @@ const UserAnswer = db.define('userAnswer', {
   }
 })
 
-module.exports = userAnswer
+module.exports = UserAnswer;
