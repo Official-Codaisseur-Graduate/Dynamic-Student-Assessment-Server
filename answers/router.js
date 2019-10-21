@@ -5,7 +5,7 @@ const router = new Router()
 router.post('/answer', (req, res, next) => {
   Answer
   .create(req.body)
-  .then(newQuestion => res.json(newQuestion))
+  .then(newQuestion => res.send(newQuestion))
   .catch(next)
 })
 
