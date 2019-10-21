@@ -1,4 +1,4 @@
-const { Router } = require('./node_modules/express')
+const { Router } = require('express')
 const Answer = require('./model')
 const router = new Router()
 
