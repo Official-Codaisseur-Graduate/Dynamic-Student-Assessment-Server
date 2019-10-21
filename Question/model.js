@@ -1,6 +1,6 @@
 const Sequelize = require('sequelize')
 const db = require('../db')
-// const Answer = require('../Answer/model')
+const Answer = require('../answers/model')
 // const Category = require('../Caterogry/model')
 
 const Question = db.define('question', {
@@ -16,5 +16,6 @@ const Question = db.define('question', {
 })
 
 Question.hasMany(Answer)
-Category.belongsTo(Question)
+// Category.belongsTo(Question)
 
+module.exports = Question
