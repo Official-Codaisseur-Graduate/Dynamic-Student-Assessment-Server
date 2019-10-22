@@ -9,7 +9,7 @@ console.log('database_url:', process.env.DATABASE_URL);
 const db = new Sequelize(databaseUrl);
 
 db
-.sync({force: true})
+.sync({force: false})
 .then(() => console.log('Database schema updated'))
 .catch(console.error)
 
