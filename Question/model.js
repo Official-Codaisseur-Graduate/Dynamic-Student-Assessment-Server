@@ -12,11 +12,14 @@ const Question = db.define('question', {
     },
     calculatedLevel: {
         type: Sequelize.INTEGER
+    },
+    categoryId: {
+        type: Sequelize.INTEGER
     }
 })
 
 Question.hasMany(Answer)
-Question.belongsTo(Category)
+// Question.belongsTo(Category)
 Answer.belongsTo(Question)
 
 module.exports = Question
