@@ -8,6 +8,4 @@ const Category = db.define('category', {
     }
 })
 
-//Question.belongsTo(Category)
-
 module.exports = Category

@@ -32,8 +32,8 @@ router.put('/question/:id', (req, res, next) => {
           res.status(404).send('question not found')
       } else {
           question.update(req.body)
-          .then(updatedquestion => {
-              res.send(updatedquestion)
+          .then(updatedQuestion => {
+              res.send(updatedQuestion)
           })
       }
   })
@@ -47,7 +47,7 @@ router.delete('/question/:id', (req, res, next) => {
           res.status(404).send('question not found')
       } else {
           question.destroy()
-          res.status(201).send('Destroyed')
+          res.status(201).send(`Destroyed question ${req.params.id}`)
       }
   })
 })
