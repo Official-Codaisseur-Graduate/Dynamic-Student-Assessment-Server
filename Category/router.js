@@ -6,6 +6,7 @@ router.get('/category', (req, res, next) => {
     //pagination?
     const limit = req.query.limit || 25
     const offset = req.query.offset || 0
+    
     Category
         .findAll({limit, offset})
         .then(categories => {
