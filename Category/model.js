@@ -1,13 +1,13 @@
 const Sequelize = require('sequelize')
-const sequelize = require('../db')
+const db = require('../db')
+//const Question = require('../Question/model')
 
-const Category = sequelize.define('category', {
-    content: {
-        type: Sequelize.STRING
-    },
+const Category = db.define('category', {
     topic: {
-        type: Sequelize.INTEGER
+        type: Sequelize.STRING
     }
 })
+
+//Question.belongsTo(Category)
 
 module.exports = Category
