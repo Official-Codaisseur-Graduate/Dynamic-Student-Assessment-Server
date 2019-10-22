@@ -146,13 +146,13 @@ You can perform two different types of requests to the '/user' endpoint:
 
 ## Dummy Data:
 
-To add some dummy data to your database, you can checkout to the branch 'testing', using the following git commands:
+To add some dummy data to your database, you can checkout to the branch 'testing', using the following git command:
 
 ```
 git checkout testing
 ```
 
-If you are currently running nodemon with the command, mentioned above, `nodemon index` the dummy data will be automatically added to your database, otherwise, you can simply run `node index` in your terminal. 
+If you are currently running nodemon with the command, mentioned above, `nodemon index`, the dummy data will be automatically added to your database, otherwise, you can simply run `node index` in your terminal. 
 
 
 
