@@ -9,6 +9,7 @@
  - Postgres (including a local postgres server - Docker Postgres, for instance)
  - Cors 
  - JSON Body-Parser
+ - Bcrypt
 
  In your terminal, run the following commands (we developed the project using 'npm'):
 
@@ -19,6 +20,7 @@
  `npm i pg`
  `npm i cors`
  `npm i nodemon`
+ `npm i bcrypt`
 
  To start the terminal with nodemon, use the following command:
 
@@ -50,6 +52,22 @@
 **GET**: You can send an http request to the endpoint 
 '/question' to read all the topics in category, with their respective 'id'. The pagination's limit is set to 25 but it can be changed by the query itself, using request.query.limit/offset. 
 
+Response Sample:
+
+```
+[
+    {
+        "calculatedLevel": null,
+        "categoryId": null,
+        "content": "What is the correct way of declaring a consistent variable in JS?",
+        "createdAt": "2019-10-22T11:41:25.141Z",
+        "id": 1,
+        "initialLevel": 2,
+        "updatedAt": "2019-10-22T11:41:25.141Z"
+    }
+]
+```
+
 **PUT**: You can send update requests to '/question/:id'.
 
 **DELETE**: You can send delete requests to '/question/:id'.
@@ -68,6 +86,19 @@
 **POST**: You can send post requests to the endpoint '/answer/, being its body composed by a text 'content',a boolean indicating whether it's true or false and a questionId. A post request to '/answer' automatically generates a 'createdAt' and 'updatedAt' time stamp.
 
 **GET**: A get request to 'answer' will return a list with all the answers, limited to 25 as a standard but it can be changed by the query itself, using request.query.limit/offset. 
+
+```
+[
+    {
+        "content": "const number = 10",
+        "correct": false,
+        "createdAt": "2019-10-22T11:41:38.015Z",
+        "id": 1,
+        "questionId": 1,
+        "updatedAt": "2019-10-22T11:41:38.015Z"
+    }
+]
+```
 
 **PUT**: You can send update requests to '/answer/:id'.
 
@@ -89,6 +120,31 @@
 **PUT**: You can send update requests to '/userAnswer/:id'.
 
 **DELETE**: You can send delete requests to '/userAnswer/:id'.
+
+## User:
+
+-The user model currently receiving three different attributes: i) username, ii) email and iii) password, being the last one encrypted by Bcrypt.
+
+You can perform two different types of requests to the '/user' endpoint:
+
+**POST:** You can post a new user containing an email, password and username as body.
+ 
+**GET:** A sample get request to the '/user' endpoint will look like:
+
+```
+[
+    {
+        "createdAt": "2019-10-22T13:31:19.763Z",
+        "email": "rein@codaisseur.com",
+        "id": 1,
+        "password": "$2b$10$nC4AK41sB8Igsu/fB86eueAl0xK2FpcwjrZZ1F8Ui3Y2jG4459ECG",
+        "updatedAt": "2019-10-22T13:31:19.763Z",
+        "username": "Rein"
+    }
+]
+```
+
+
 
 
 
