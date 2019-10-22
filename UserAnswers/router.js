@@ -2,14 +2,14 @@ const { Router } = require('express')
 const UserAnswer = require('./model')
 const router = new Router()
 
-router.post('/userAnswers', (req, res, next) => {
+router.post('/userAnswer', (req, res, next) => {
   UserAnswer
   .create(req.body)
   .then(userAnswers => res.send(userAnswers))
   .catch(next)
 })
 
-router.get('/userAnswers', (req, res, next) => {
+router.get('/userAnswer', (req, res, next) => {
   const limit = req.query.limit || 25
   const offset = req.query.offset || 0
 
@@ -19,14 +19,14 @@ router.get('/userAnswers', (req, res, next) => {
   .catch(next)
 })
 
-router.get('/userAnswer', (req, res, next) => {
+router.get('/userAnswer/:id', (req, res, next) => {
   UserAnswer
   .findByPk(req.params.id)
   .then(userAnswer => res.send(userAnswer))
   .catch(next)
 })
 
-router.put('/userAnswer', (req, res, next) => {
+router.put('/userAnswer/:id', (req, res, next) => {
   UserAnswer
   .findByPk(req.params.id)
   .then(userAnswer => res.send(userAnswer))
