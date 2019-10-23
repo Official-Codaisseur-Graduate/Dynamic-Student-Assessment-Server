@@ -31,16 +31,17 @@ router.get('/question', (req, res, next) => {
 router.get('/question/:id', async (req, res, next) => {
     //first check if previous answer was (in)correct by requesting the related Answer by id - 1
     let first = 1
-    if(req.params.id !== 1) { 
+    if(req.params.id === 1) { 
         first = 0
     }
+
     const previousAnswer = 
         await router.get('userAnswer/:id', (req, res, next) => {
             UserAnswer.findByPk(req.params.id - first)
     })
 
     //then put that previous answer in the algorithm and check if it was correct
-    const newLevel = AdaptiveQuestionAlgorithm(previousAnswer)
+    const newLevel = await AdaptiveQuestionAlgorithm(previousAnswer)
 
     //lastly, return a new question, based on what the algortithm decides.
     const possibleNewQuestions = await Question.findAll({ 
@@ -48,6 +49,7 @@ router.get('/question/:id', async (req, res, next) => {
             initialLevel: newLevel 
         }
     })
+    
     let random  = Math.random(possibleNewQuestions.length)
     const newQuestion = await Question.findByPk(random)
     res.send(newQuestion)
