@@ -2,10 +2,11 @@ const { Router } = require('express')
 const UserAnswer = require('./model')
 const router = new Router()
 
-router.post('/userAnswer', (req, res, next) => {
-  UserAnswer
-  .create(req.body)
-  .then(userAnswers => res.send(userAnswers))
+router.post('/userAnswer', async (req, res, next) => {
+  UserAnswer.create(req.body)   
+  .then(answer => {
+    res.send(answer)
+  })
   .catch(next)
 })
 
