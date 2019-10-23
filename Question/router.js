@@ -15,11 +15,11 @@ router.get('/question', (req, res, next) => {
   const offset = req.query.offset || 0
   Question
       .findAll({limit, offset})
-      .then(categories => {
-          if(!categories) {
-              res.status(404).send('No categories found')
+      .then(question => {
+          if(!question) {
+              res.status(404).send('No question found')
           } else {
-              return res.send(categories)
+              return res.send(question)
           }
     })
   .catch(next)
