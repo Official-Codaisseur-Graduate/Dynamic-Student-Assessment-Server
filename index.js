@@ -12,6 +12,7 @@ const categoryRouter = require('./Category/router')
 const db = require('./db')
 const Question = require('./Question/model')
 const Answer = require('./Answer/model')
+const UserAnswer = require('./UserAnswers/model')
 const Category = require('./Category/model')
 
 db
@@ -22,7 +23,7 @@ db
     {
       categoryId: 2,
       content: 'What is a function?',
-      initialLevel: 0,
+      initialLevel: 1,
       calculatedLevel: 0
     },
     {
@@ -34,7 +35,7 @@ db
     {
       categoryId: 5,
       content: 'Let x = 13, b = ‘a’, c = x + b. What is c?',
-      initialLevel: 0,
+      initialLevel: 2,
       calculatedLevel: 0
     },
     {
@@ -46,7 +47,7 @@ db
     {
       categoryId: 3,
       content: 'Number is undefined’ What does ‘undefined’ mean?',
-      initialLevel: 0,
+      initialLevel: 1,
       calculatedLevel: 0
     },
     {
@@ -58,13 +59,13 @@ db
     {
       categoryId: 6,
       content: 'What kind of statement is used to execute actions based on a trigger or condition?',
-      initialLevel: 0,
+      initialLevel: 2,
       calculatedLevel: 0
     },
     {
       categoryId: 1,
       content: 'What is a JavaScript element that represents either TRUE or FALSE values?',
-      initialLevel: 0,
+      initialLevel: 1,
       calculatedLevel: 0
     },
     {
@@ -300,6 +301,20 @@ db
     },
     {
       topic: 'Statements'
+    },
+  ])
+  await UserAnswer.bulkCreate([
+    {
+      questionId: 1,
+      answerId: 4
+    },
+    {
+      questionId: 2,
+      answerId: 2
+    },
+    {
+      questionId: 3,
+      answerId: 4
     },
   ])
 })

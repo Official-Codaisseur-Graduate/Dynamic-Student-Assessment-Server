@@ -1,6 +1,7 @@
 const { Router } = require('express')
 const Question = require('./model')
 const Answer = require('../Answer/model')
+const UserAnswer = require('../UserAnswers/model')
 const router = new Router()
 const AdaptiveQuestionAlgorithm = require('../AdaptiveQuestionAlgorithm')
 
@@ -28,21 +29,24 @@ router.get('/question', (req, res, next) => {
   .catch(next)
 })
 
-router.get('/question/:id', async (req, res, next) => {
-    //first check if previous answer was (in)correct by requesting the related Answer by id - 1
-    let first = 1
-    if(req.params.id === 1) { 
-        first = 0
+router.get('/question/:index', async (req, res, next) => {
+    let newLevel = 0
+
+    const previousAnswer = await UserAnswer.findByPk(req.params.index - 1,
+        {
+            include: [{
+                model: Answer,
+                attributes: ['correct']
+            }]
+        })
+    console.log('THIS IS THE PREVIOUS ANSWER', previousAnswer)
+
+    if (previousAnswer) {    
+        //then put that previous answer in the algorithm and check if it was correct
+        newLevel = await AdaptiveQuestionAlgorithm(previousAnswer)
     }
-
-    const previousAnswer = 
-        await router.get('userAnswer/:id', (req, res, next) => {
-            UserAnswer.findByPk(req.params.id - first)
-    })
-
-    //then put that previous answer in the algorithm and check if it was correct
-    const newLevel = await AdaptiveQuestionAlgorithm(previousAnswer)
-
+    
+    console.log('THIS IS THE NEW LEVEL', newLevel)
     //lastly, return a new question, based on what the algortithm decides.
     const possibleNewQuestions = await Question.findAll({ 
         where: { 
@@ -50,10 +54,13 @@ router.get('/question/:id', async (req, res, next) => {
         }
     })
     
-    let random  = Math.random(possibleNewQuestions.length)
-    const newQuestion = await Question.findByPk(random)
+    console.log('THESE ARE THE POSSIBLE QUESTIONS', possibleNewQuestions.length)
+    let random  = Math.floor(Math.random() * Math.floor(possibleNewQuestions.length))
+    console.log('THIS IS THE RANDOM NUMBER', random)
+    const newQuestion = possibleNewQuestions[random]
+    console.log('THIS IS THE NEW QUESTION', newQuestion)
     res.send(newQuestion)
-    .catch(next)
+    // .catch(next)
   })
 
 router.put('/question/:id', (req, res, next) => {

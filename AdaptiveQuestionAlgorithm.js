@@ -1,30 +1,17 @@
-function AdaptiveQuestionGenerator(answer) {
+function AdaptiveQuestionAlgorithm(answer) {
     let newLevel = 0
-    // let totalAnswers = answer.totalAnswers    
-    // let correctAnswers = []
-    // let inCorrectAnswers = []
-    // let score = correctAnswers.length / totalAnswers 
-    // let categoryPattern = false 
-    
-    //check if (in)correct
-    if(answer.correct === true) {
-        //do something
-        newLevel++
+
+    if(answer.answer.correct === true) {
+        console.log('THIS ANSWER IS CORRECT')
+        newLevel += 1
     }
 
+    //implement
     //check frequency of answer (in)correct
     //check if pattern in answering related to category
 
-    //returns an array with questions with new level of difficulty
+    console.log('this is the new level', newLevel)
     return newLevel
 }
-
-
-
-
-
-
-
-
 
 module.exports = AdaptiveQuestionAlgorithm
