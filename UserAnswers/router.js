@@ -20,14 +20,14 @@ router.get('/userAnswer', (req, res, next) => {
   .catch(next)
 })
 
-router.get('/userAnswer', (req, res, next) => {
+router.get('/userAnswer/:id', (req, res, next) => {
   UserAnswer
   .findByPk(req.params.id)
   .then(userAnswer => res.send(userAnswer))
   .catch(next)
 })
 
-router.put('/userAnswer', (req, res, next) => {
+router.put('/userAnswer/:id', (req, res, next) => {
   UserAnswer
   .findByPk(req.params.id)
   .then(userAnswer => res.send(userAnswer))
