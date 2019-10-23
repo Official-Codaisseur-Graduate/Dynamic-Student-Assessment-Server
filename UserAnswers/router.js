@@ -2,11 +2,16 @@ const { Router } = require('express')
 const UserAnswer = require('./model')
 const router = new Router()
 
-router.post('/userAnswers', (req, res, next) => {
-  UserAnswer
-  .create(req.body)
-  .then(userAnswers => res.send(userAnswers))
-  .catch(next)
+router.post('/userAnswers', async (req, res, next) => {
+  const userAnswer = await UserAnswer.create(req.body)
+  const updatedUserAnswer = await UserAnswer.findByPk(userAnswer.id,
+    {
+      include: [{
+        model: Answer,
+        attributes: ['correct']
+    }]})    
+  res.send(updatedUserAnswer)
+  // .catch(next)
 })
 
 router.get('/userAnswers', (req, res, next) => {
