@@ -40,6 +40,18 @@ router.put('/question/:id', (req, res, next) => {
   .catch(next)
 })
 
+router.get('/question/:id', (req, res, next) => {
+    Question.findByPk(req.params.id)
+    .then(question => {
+        if(!question) {
+            res.status(404).send('No question found')
+        } else {
+            return res.send(question)
+        }
+    })
+    .catch(next)
+})
+
 router.delete('/question/:id', (req, res, next) => {
   Question.findByPk(req.params.id)
   .then(question => {
