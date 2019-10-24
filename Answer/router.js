@@ -19,6 +19,17 @@ router.get('/answer', (req, res, next) => {
   .catch(next)
 })
 
+router.get('/answer/question/:id', (req, res, next) => {
+  Answer
+  .findAll({ 
+    where: {
+      questionId: req.params.id
+    }
+  })
+  .then(relatedAnswers => res.send(relatedAnswers))
+  .catch(next)
+})
+
 router.get('/answer/:id', (req, res, next) => {
   Answer
   .findByPk(req.params.id)
