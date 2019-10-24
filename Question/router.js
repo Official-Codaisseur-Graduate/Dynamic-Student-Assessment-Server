@@ -44,10 +44,15 @@ router.get('/question/:index', async (req, res, next) => {
             where: { 
                 initialLevel: 0,
             },
-            include: [{
-                model: Category,
-                attributes: ['topic']
-            }]
+            include: [
+                {
+                    model: Category,
+                    attributes: ['topic']
+                },
+                {
+                    model: Answer,
+                }
+            ]
         })
         let randomFirst  = Math.floor(Math.random() * Math.floor(newQuestions.length))
         const firstQuestion = newQuestions[randomFirst]
@@ -73,10 +78,15 @@ router.get('/question/:index', async (req, res, next) => {
             where: { 
                 initialLevel: newLevel,
             },
-            include: [{
-                model: Category,
-                attributes: ['topic']
-            }]
+            include: [
+                {
+                    model: Category,
+                    attributes: ['topic']
+                },
+                {
+                    model: Answer
+                },
+            ]
         })
         
         console.log('THESE ARE THE POSSIBLE QUESTIONS', possibleNewQuestions.length)
