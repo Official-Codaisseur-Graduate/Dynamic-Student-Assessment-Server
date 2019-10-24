@@ -100,6 +100,8 @@ Response Sample:
 ]
 ```
 
+You can also make **GET** requests to '/answer/question/:id' endpoint to get all the answers for a specific question in the database.
+
 **PUT**: You can send update requests to '/answer/:id'.
 
 **DELETE**: You can send delete requests to '/answer/:id'.
@@ -149,7 +151,7 @@ You can perform two different types of requests to the '/user' endpoint:
 To add some dummy data to your database, you can checkout to the branch 'testing', using the following git command:
 
 ```
-git checkout testing
+git checkout dummy-data-testing
 ```
 
 If you are currently running nodemon with the command, mentioned above, `nodemon index`, the dummy data will be automatically added to your database, otherwise, you can simply run `node index` in your terminal. 
