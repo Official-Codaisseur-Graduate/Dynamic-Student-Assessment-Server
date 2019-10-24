@@ -2,7 +2,7 @@ const { Router } = require('express');
 const { toJWT, toData } = require('./jwt');
 const User = require('../User/model');
 const bcrypt = require('bcrypt');
-const auth = require('./middleware');
+//const auth = require('./middleware');
 
 const router = new Router();
 

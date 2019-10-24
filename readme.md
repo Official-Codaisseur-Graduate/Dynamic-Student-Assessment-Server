@@ -68,6 +68,9 @@ Response Sample:
 ]
 ```
 
+**GET - '/question/:index'** A
+A get request to the endpoint '/question/:number' will return the index of a question in sequence, therefore '/question/1' will return the first question provided to a user and so on. 
+
 **PUT**: You can send update requests to '/question/:id'.
 
 **DELETE**: You can send delete requests to '/question/:id'.
@@ -99,6 +102,8 @@ Response Sample:
     }
 ]
 ```
+
+You can also make **GET** requests to '/answer/question/:id' endpoint to get all the answers for a specific question in the database.
 
 **PUT**: You can send update requests to '/answer/:id'.
 
@@ -149,19 +154,12 @@ You can perform two different types of requests to the '/user' endpoint:
 To add some dummy data to your database, you can checkout to the branch 'testing', using the following git command:
 
 ```
-git checkout testing
+git checkout dummy-data-testing
 ```
 
 If you are currently running nodemon with the command, mentioned above, `nodemon index`, the dummy data will be automatically added to your database, otherwise, you can simply run `node index` in your terminal. 
 
+## Adaptive-Question-Algorithm
 
-
-
-
-
-
-
-
-
-
+The Adaptive Question Algorithm works in two different .js files. The first is 'AdaptiveQuestionAlgorithm', which takes as a parameter the 'givenAnswer' from a userId into the database. Each given answer, if correct, will return a higger level to questions provided to the user. Which returns a 'newLevel' to the starter 'initialLevel'.
 
