@@ -1,6 +1,10 @@
 const { Router } = require('express')
 const Question = require('./model')
+const Answer = require('../Answer/model')
+const UserAnswer = require('../UserAnswers/model')
 const router = new Router()
+const AdaptiveQuestionAlgorithm = require('../AdaptiveQuestionAlgorithm')
+
 
 router.post('/question', (req, res, next) => {
   Question
@@ -15,15 +19,53 @@ router.get('/question', (req, res, next) => {
   const offset = req.query.offset || 0
   Question
       .findAll({limit, offset})
-      .then(categories => {
-          if(!categories) {
-              res.status(404).send('No categories found')
+      .then(questions => {
+          if(!questions) {
+              res.status(404).send('No questions found')
           } else {
-              return res.send(categories)
+              return res.send(questions)
           }
     })
   .catch(next)
 })
+
+router.get('/question/:index', async (req, res, next) => {
+    let newLevel = 0
+
+    const previousAnswer = await UserAnswer.findByPk(req.params.index - 1,
+        {
+            include: [{
+                model: Answer,
+                attributes: ['correct']
+            }]
+        })
+    console.log('THIS IS THE PREVIOUS ANSWER', previousAnswer)
+
+    if (previousAnswer) {    
+        //then put that previous answer in the algorithm and check if it was correct
+        newLevel = await AdaptiveQuestionAlgorithm(previousAnswer)
+    }
+    
+    console.log('THIS IS THE NEW LEVEL', newLevel)
+    //lastly, return a new question, based on what the algortithm decides.
+    const possibleNewQuestions = await Question.findAll({ 
+        where: { 
+            initialLevel: newLevel,
+            include: [{
+                model: Category,
+                attributes: ['topic']
+            }]
+        }
+    })
+    
+    console.log('THESE ARE THE POSSIBLE QUESTIONS', possibleNewQuestions.length)
+    let random  = Math.floor(Math.random() * Math.floor(possibleNewQuestions.length))
+    console.log('THIS IS THE RANDOM NUMBER', random)
+    const newQuestion = possibleNewQuestions[random]
+    console.log('THIS IS THE NEW QUESTION', newQuestion)
+    res.send(newQuestion)
+    // .catch(next)
+  })
 
 router.put('/question/:id', (req, res, next) => {
   Question.findByPk(req.params.id)
