@@ -4,7 +4,7 @@ const Answer = require('../Answer/model')
 const UserAnswer = require('../UserAnswers/model')
 const router = new Router()
 const AdaptiveQuestionAlgorithm = require('../AdaptiveQuestionAlgorithm')
-
+const Category = require('../Category/model')
 
 router.post('/question', (req, res, next) => {
   Question
@@ -32,24 +32,27 @@ router.get('/question', (req, res, next) => {
 router.get('/question/:index', async (req, res, next) => {
     try { 
         let newLevel = 0
-        let first = 1
 
         if(req.params.index === 1) {
+            console.log('I AM BEING CALLED WHEN QUESTION 1')
             const newQuestions = await Question.findAll({ 
                 where: { 
                     initialLevel: 0,
-                    include: [{
-                        model: Category,
-                        attributes: ['topic']
-                    }]
-                }
+                },
+                include: [{
+                    model: Category,
+                    attributes: ['topic']
+                }]
             })
             let random  = Math.floor(Math.random() * Math.floor(newQuestions.length))
             const firstQuestion = newQuestions[random]
             res.send(firstQuestion)
         } else {
-            const previousAnswer = await UserAnswer.findByPk(req.params.index - first,
-                {
+            const previousAnswer = await UserAnswer.findOne(
+                {     
+                    where: {
+                        questionId: req.params.index - 1
+                    },
                     include: [{
                         model: Answer,
                         attributes: ['correct']
@@ -58,21 +61,19 @@ router.get('/question/:index', async (req, res, next) => {
     
             console.log('THIS IS THE PREVIOUS ANSWER', previousAnswer)
         
-            if (previousAnswer) {    
                 //then put that previous answer in the algorithm and check if it was correct
-                newLevel = await AdaptiveQuestionAlgorithm(previousAnswer)
-            } 
+            newLevel = await AdaptiveQuestionAlgorithm(previousAnswer)
             
             console.log('THIS IS THE NEW LEVEL', newLevel)
             //lastly, return a new question, based on what the algortithm decides.
             const possibleNewQuestions = await Question.findAll({ 
                 where: { 
                     initialLevel: newLevel,
-                    include: [{
-                        model: Category,
-                        attributes: ['topic']
-                    }]
-                }
+                },
+                include: [{
+                    model: Category,
+                    attributes: ['topic']
+                }]
             })
             
             console.log('THESE ARE THE POSSIBLE QUESTIONS', possibleNewQuestions.length)

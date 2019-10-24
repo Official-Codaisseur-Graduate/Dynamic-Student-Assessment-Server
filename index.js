@@ -19,9 +19,36 @@ const Category = require('./Category/model')
 const User = require('./User/model')
 
 db
-.sync({force: false})
+.sync({force: true})
 .then( async () => {
   console.log('Database schema updated')
+  await User.bulkCreate([
+    {
+      username: "Rein",
+      email: "rein@codaisseur.dev",
+      password: "rein123"
+    }
+  ])
+  await Category.bulkCreate([
+    {
+      topic: 'Variables'
+    },
+    {
+      topic: 'Functions'
+    },
+    {
+      topic: 'Global'
+    },
+    {
+      topic: 'Logic'
+    },
+    {
+      topic: 'Type Coercion'
+    },
+    {
+      topic: 'Statements'
+    },
+  ])
   await Question.bulkCreate([
     {
       categoryId: 2,
@@ -286,26 +313,6 @@ db
       correct: false
     }
   ])
-  await Category.bulkCreate([
-    {
-      topic: 'Variables'
-    },
-    {
-      topic: 'Functions'
-    },
-    {
-      topic: 'Global'
-    },
-    {
-      topic: 'Logic'
-    },
-    {
-      topic: 'Type Coercion'
-    },
-    {
-      topic: 'Statements'
-    },
-  ])
   await UserAnswer.bulkCreate([
     {
       questionId: 1,
@@ -319,13 +326,6 @@ db
       questionId: 3,
       answerId: 4
     },
-  ])
-  await User.bulkCreate([
-    {
-      username: "Rein",
-      email: "rein@codaisseur.dev",
-      password: "rein123"
-    }
   ])
 })
 .catch(console.error)
