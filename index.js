@@ -17,6 +17,7 @@ const Answer = require('./Answer/model')
 const UserAnswer = require('./UserAnswers/model')
 const Category = require('./Category/model')
 const User = require('./User/model')
+const login = require('./Auth/router')
 
 db
 .sync({force: false})
@@ -337,6 +338,7 @@ app.use(questionRouter)
 app.use(userAnswersRouter)
 app.use(categoryRouter)
 app.use(userRouter)
+app.use(login)
 
 function onListen() {
   console.log(`Server running on port ${port}`)
