@@ -8,6 +8,10 @@ const UserAnswer = db.define('UserAnswer', {
   {
     type: Sequelize.INTEGER
   },
+  correct: 
+  {
+    type: Sequelize.BOOLEAN
+  }
 })
 
 UserAnswer.belongsTo(Answer)

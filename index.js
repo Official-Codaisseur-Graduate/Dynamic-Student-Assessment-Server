@@ -9,6 +9,7 @@ const answersRouter = require('./Answer/router')
 const questionRouter = require('./question/router')
 const userAnswersRouter = require('./UserAnswers/router')
 const categoryRouter = require('./Category/router')
+const userRouter = require('./User/router')
 
 app.use(corsMiddleware)
 app.use(jsonParser)
@@ -16,6 +17,7 @@ app.use(answersRouter)
 app.use(questionRouter)
 app.use(userAnswersRouter)
 app.use(categoryRouter)
+app.use(userRouter)
 
 function onListen() {
   console.log(`Server running on port ${port}`)

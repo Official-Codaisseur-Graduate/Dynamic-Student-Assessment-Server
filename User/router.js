@@ -1,6 +1,9 @@
 const { Router } = require('express')
 const User = require('./model')
+const Sequelize = require('sequelize')
+const bcrypt = require('bcrypt')
 const router = new Router()
+
 
 router.post('/user', (req, res, next) => {
 
@@ -43,5 +46,15 @@ router.post('/user', (req, res, next) => {
     res.status(400).send({ message: 'Not all data provided' });
   }
  });
+
+ router.get('/user', (req, res, next) => {
+  const limit = req.query.limit || 25
+  const offset = req.query.offset || 0
+  
+  User
+   .findAll({limit, offset})
+   .then(user => res.send(user))
+   .catch(next)
+ })
 
  module.exports = router;
