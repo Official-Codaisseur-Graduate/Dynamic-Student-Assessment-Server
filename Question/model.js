@@ -4,7 +4,7 @@ const Answer = require('../Answer/model')
 const Category = require('../Category/model')
 
 const Question = db.define('question', {
-    content: {
+    questionContent: {
         type: Sequelize.STRING
     },
     initialLevel: {
