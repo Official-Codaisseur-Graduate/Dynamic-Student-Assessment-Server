@@ -50,7 +50,11 @@ router.get('/question/:index', async (req, res, next) => {
     //lastly, return a new question, based on what the algortithm decides.
     const possibleNewQuestions = await Question.findAll({ 
         where: { 
-            initialLevel: newLevel 
+            initialLevel: newLevel,
+            include: [{
+                model: Category,
+                attributes: ['topic']
+            }]
         }
     })
     
