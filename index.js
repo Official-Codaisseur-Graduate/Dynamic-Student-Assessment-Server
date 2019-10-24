@@ -19,7 +19,7 @@ const Category = require('./Category/model')
 const User = require('./User/model')
 
 db
-.sync({force: true})
+.sync({force: false})
 .then( async () => {
   console.log('Database schema updated')
   await Question.bulkCreate([
