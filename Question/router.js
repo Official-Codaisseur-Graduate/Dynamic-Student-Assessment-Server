@@ -30,42 +30,63 @@ router.get('/question', (req, res, next) => {
 })
 
 router.get('/question/:index', async (req, res, next) => {
-    let newLevel = 0
+    try { 
+        let newLevel = 0
+        let first = 1
 
-    const previousAnswer = await UserAnswer.findByPk(req.params.index - 1,
-        {
-            include: [{
-                model: Answer,
-                attributes: ['correct']
-            }]
-        })
-    console.log('THIS IS THE PREVIOUS ANSWER', previousAnswer)
-
-    if (previousAnswer) {    
-        //then put that previous answer in the algorithm and check if it was correct
-        newLevel = await AdaptiveQuestionAlgorithm(previousAnswer)
-    }
+        if(req.params.index === 1) {
+            const newQuestions = await Question.findAll({ 
+                where: { 
+                    initialLevel: 0,
+                    include: [{
+                        model: Category,
+                        attributes: ['topic']
+                    }]
+                }
+            })
+            let random  = Math.floor(Math.random() * Math.floor(newQuestions.length))
+            const firstQuestion = newQuestions[random]
+            res.send(firstQuestion)
+        } else {
+            const previousAnswer = await UserAnswer.findByPk(req.params.index - first,
+                {
+                    include: [{
+                        model: Answer,
+                        attributes: ['correct']
+                    }]
+                })
     
-    console.log('THIS IS THE NEW LEVEL', newLevel)
-    //lastly, return a new question, based on what the algortithm decides.
-    const possibleNewQuestions = await Question.findAll({ 
-        where: { 
-            initialLevel: newLevel,
-            include: [{
-                model: Category,
-                attributes: ['topic']
-            }]
+            console.log('THIS IS THE PREVIOUS ANSWER', previousAnswer)
+        
+            if (previousAnswer) {    
+                //then put that previous answer in the algorithm and check if it was correct
+                newLevel = await AdaptiveQuestionAlgorithm(previousAnswer)
+            } 
+            
+            console.log('THIS IS THE NEW LEVEL', newLevel)
+            //lastly, return a new question, based on what the algortithm decides.
+            const possibleNewQuestions = await Question.findAll({ 
+                where: { 
+                    initialLevel: newLevel,
+                    include: [{
+                        model: Category,
+                        attributes: ['topic']
+                    }]
+                }
+            })
+            
+            console.log('THESE ARE THE POSSIBLE QUESTIONS', possibleNewQuestions.length)
+            let random  = Math.floor(Math.random() * Math.floor(possibleNewQuestions.length))
+            console.log('THIS IS THE RANDOM NUMBER', random)
+            const newQuestion = possibleNewQuestions[random]
+            console.log('THIS IS THE NEW QUESTION', newQuestion)
+            res.send(newQuestion) 
         }
-    })
-    
-    console.log('THESE ARE THE POSSIBLE QUESTIONS', possibleNewQuestions.length)
-    let random  = Math.floor(Math.random() * Math.floor(possibleNewQuestions.length))
-    console.log('THIS IS THE RANDOM NUMBER', random)
-    const newQuestion = possibleNewQuestions[random]
-    console.log('THIS IS THE NEW QUESTION', newQuestion)
-    res.send(newQuestion)
-    // .catch(next)
-  })
+    }
+    catch(error) {
+        console.error(error)
+    }
+})
 
 router.put('/question/:id', (req, res, next) => {
   Question.findByPk(req.params.id)
