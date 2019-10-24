@@ -5,7 +5,7 @@ const UserAnswer = require('../UserAnswers/model')
 const Category = require('../Category/model')
 const router = new Router()
 const AdaptiveQuestionAlgorithm = require('../AdaptiveQuestionAlgorithm')
-
+const Category = require('../Category/model')
 
 router.post('/question', (req, res, next) => {
   Question
