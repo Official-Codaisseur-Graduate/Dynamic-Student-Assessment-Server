@@ -53,61 +53,61 @@ db
   await Question.bulkCreate([
     {
       categoryId: 2,
-      content: 'What is a function?',
+      questionContent: 'What is a function?',
       initialLevel: 1,
       calculatedLevel: 0
     },
     {
       categoryId: 1,
-      content: 'What is a variable?',
+      questionContent: 'What is a variable?',
       initialLevel: 0,
       calculatedLevel: 0
     },
     {
       categoryId: 5,
-      content: 'Let x = 13, b = ‘a’, c = x + b. What is c?',
+      questionContent: 'Let x = 13, b = ‘a’, c = x + b. What is c?',
       initialLevel: 2,
       calculatedLevel: 0
     },
     {
       categoryId: 2,
-      content: 'Function banana(a) { console.log(a + ‘world’) } What does this function return?',
+      questionContent: 'Function banana(a) { console.log(a + ‘world’) } What does this function return?',
       initialLevel: 0,
       calculatedLevel: 0
     },
     {
       categoryId: 3,
-      content: 'Number is undefined’ What does ‘undefined’ mean?',
+      questionContent: 'Number is undefined’ What does ‘undefined’ mean?',
       initialLevel: 1,
       calculatedLevel: 0
     },
     {
       categoryId: 1,
-      content: 'Declare a consistent variable b and assign it the value of 80',
+      questionContent: 'Declare a consistent variable b and assign it the value of 80',
       initialLevel: 0,
       calculatedLevel: 0
     },
     {
       categoryId: 6,
-      content: 'What kind of statement is used to execute actions based on a trigger or condition?',
+      questionContent: 'What kind of statement is used to execute actions based on a trigger or condition?',
       initialLevel: 2,
       calculatedLevel: 0
     },
     {
       categoryId: 1,
-      content: 'What is a JavaScript element that represents either TRUE or FALSE values?',
+      questionContent: 'What is a JavaScript element that represents either TRUE or FALSE values?',
       initialLevel: 1,
       calculatedLevel: 0
     },
     {
       categoryId: 6,
-      content: 'What is the name of the statement that is used to exit or end a loop?',
+      questionContent: 'What is the name of the statement that is used to exit or end a loop?',
       initialLevel: 0,
       calculatedLevel: 0
     },
     {
       categoryId: 3,
-      content: 'What does JSON mean?',
+      questionContent: 'What does JSON mean?',
       initialLevel: 0,
       calculatedLevel: 0
     }
@@ -115,202 +115,202 @@ db
   await Answer.bulkCreate([
     {
       questionId: 1,
-      content: 'Something that runs an operation and then returns something',
+      answerContent: 'Something that runs an operation and then returns something',
       correct: true
     },
     {
       questionId: 2,
-      content: 'An element that stores something',
+      answerContent: 'An element that stores something',
       correct: true
     },
     {
       questionId: 3,
-      content: '‘13a’',
+      answerContent: '‘13a’',
       correct: true
     },
     {
       questionId: 4,
-      content: 'It doesn’t return anything',
+      answerContent: 'It doesn’t return anything',
       correct: true
     },
     {
       questionId: 5,
-      content: 'Javascript does not know what ‘number’ is. It is not defined anywhere.',
+      answerContent: 'Javascript does not know what ‘number’ is. It is not defined anywhere.',
       correct: true
     },
     {
       questionId: 6,
-      content: 'Const b = 80',
+      answerContent: 'Const b = 80',
       correct: true
     },
     {
       questionId: 7,
-      content: 'Conditional statement',
+      answerContent: 'Conditional statement',
       correct: true
     },
     {
       questionId: 8,
-      content: 'Boolean',
+      answerContent: 'Boolean',
       correct: true
     },
     {
       questionId: 9,
-      content: 'Break',
+      answerContent: 'Break',
       correct: true
     },
     {
       questionId: 10,
-      content: 'Javascript Object Notation',
+      answerContent: 'Javascript Object Notation',
       correct: true
     },
     {
       questionId: 1,
-      content: 'A mathematical equation',
+      answerContent: 'A mathematical equation',
       correct: false
     },
     {
       questionId: 2,
-      content: 'A number',
+      answerContent: 'A number',
       correct: false
     },
     {
       questionId: 3,
-      content: 'Undefined',
+      answerContent: 'Undefined',
       correct: false
     },
     {
       questionId: 4,
-      content: 'hello world’',
+      answerContent: 'hello world’',
       correct: false
     },
     {
       questionId: 5,
-      content: 'It has no value',
+      answerContent: 'It has no value',
       correct: false
     },
     {
       questionId: 6,
-      content: 'Let b = 80',
+      answerContent: 'Let b = 80',
       correct: false
     },
     {
       questionId: 7,
-      content: 'Action statement',
+      answerContent: 'Action statement',
       correct: false
     },
     {
       questionId: 8,
-      content: 'Variable',
+      answerContent: 'Variable',
       correct: false
     },
     {
       questionId: 9,
-      content: 'While loop',
+      answerContent: 'While loop',
       correct: false
     },
     {
       questionId: 10,
-      content: 'Jimmy Stocks On Nutella',
+      answerContent: 'Jimmy Stocks On Nutella',
       correct: false
     },
     {
       questionId: 1,
-      content: 'Something useful',
+      answerContent: 'Something useful',
       correct: false
     },
     {
       questionId: 2,
-      content: 'A string',
+      answerContent: 'A string',
       correct: false
     },
     {
       questionId: 3,
-      content: '13a',
+      answerContent: '13a',
       correct: false
     },
     {
       questionId: 4,
-      content: 'aworld',
+      answerContent: 'aworld',
       correct: false
     },
     {
       questionId: 5,
-      content: 'It is 0',
+      answerContent: 'It is 0',
       correct: false
     },
     {
       questionId: 6,
-      content: 'Var b = 80',
+      answerContent: 'Var b = 80',
       correct: false
     },
     {
       questionId: 7,
-      content: 'Trigger statement',
+      answerContent: 'Trigger statement',
       correct: false
     },
     {
       questionId: 8,
-      content: 'If else element',
+      answerContent: 'If else element',
       correct: false
     },
     {
       questionId: 9,
-      content: 'Switch statement',
+      answerContent: 'Switch statement',
       correct: false
     },
     {
       questionId: 10,
-      content: 'Jessica Sleeps Over Night',
+      answerContent: 'Jessica Sleeps Over Night',
       correct: false
     },
     {
       questionId: 1,
-      content: 'Something that works properly',
+      answerContent: 'Something that works properly',
       correct: false
     },
     {
       questionId: 2,
-      content: 'Var or let',
+      answerContent: 'Var or let',
       correct: false
     },
     {
       questionId: 3,
-      content: '13’a’',
+      answerContent: '13’a’',
       correct: false
     },
     {
       questionId: 4,
-      content: 'Banana',
+      answerContent: 'Banana',
       correct: false
     },
     {
       questionId: 5,
-      content: 'It is not calculated yet',
+      answerContent: 'It is not calculated yet',
       correct: false
     },
     {
       questionId: 6,
-      content: 'B = 80',
+      answerContent: 'B = 80',
       correct: false
     },
     {
       questionId: 7,
-      content: 'Function statement',
+      answerContent: 'Function statement',
       correct: false
     },
     {
       questionId: 8,
-      content: 'Fault',
+      answerContent: 'Fault',
       correct: false
     },
     {
       questionId: 9,
-      content: 'Conditional statement',
+      answerContent: 'Conditional statement',
       correct: false
     },
     {
       questionId: 10,
-      content: 'Javascript Object Nintendo',
+      answerContent: 'Javascript Object Nintendo',
       correct: false
     }
   ])
