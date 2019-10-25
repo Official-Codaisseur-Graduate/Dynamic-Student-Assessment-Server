@@ -7,7 +7,7 @@ const cors = require('cors')
 const corsMiddleware = cors()
 const answersRouter = require('./Answer/router')
 const questionRouter = require('./Question/router')
-const userAnswersRouter = require('./UserAnswers/router')
+const userAnswersRouter = require('./UserAnswer/router')
 const categoryRouter = require('./Category/router')
 const userRouter = require('./User/router')
 const login = require('./Auth/router')
@@ -15,7 +15,7 @@ const login = require('./Auth/router')
 const db = require('./db')
 const Question = require('./Question/model')
 const Answer = require('./Answer/model')
-const UserAnswer = require('./UserAnswers/model')
+const UserAnswer = require('./UserAnswer/model')
 const Category = require('./Category/model')
 const User = require('./User/model')
 
@@ -317,15 +317,66 @@ db
   await UserAnswer.bulkCreate([
     {
       questionId: 1,
-      answerId: 4
+      answerId: 4,
+      userId: 1,
+      categoryId: 2,
+      correct: true
     },
     {
       questionId: 2,
-      answerId: 2
+      answerId: 2,
+      userId: 1,
+      categoryId: 1,
+      correct: true
     },
     {
       questionId: 3,
-      answerId: 4
+      answerId: 4,
+      userId: 1,
+      categoryId: 5,
+      correct: true
+    },
+    {
+      questionId: 5,
+      answerId: 3,
+      userId: 1,
+      categoryId: 3
+    },
+    {
+      questionId: 6,
+      answerId: 2,
+      userId: 1,
+      categoryId: 1
+    },
+    {
+      questionId: 7,
+      answerId: 2,
+      userId: 1,
+      categoryId: 6
+    },
+    {
+      questionId: 8,
+      answerId: 1,
+      userId: 1, 
+      categoryId: 1
+    },
+    {
+      questionId: 9,
+      answerId: 3,
+      userId: 1,
+      categoryId: 6
+    },
+    {
+      questionId: 10,
+      answerId: 3,
+      userId: 1,
+      categoryId: 3
+    },
+    {
+      questionId: 4,
+      answerId: 3,
+      userId: 1,
+      categoryId: 2
     },
   ])
 })

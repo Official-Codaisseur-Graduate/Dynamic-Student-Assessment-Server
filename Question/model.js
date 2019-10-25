@@ -21,5 +21,6 @@ const Question = db.define('question', {
 Question.hasMany(Answer)
 Question.belongsTo(Category)
 Answer.belongsTo(Question)
+Answer.belongsTo(Category)
 
 module.exports = Question
