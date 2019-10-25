@@ -68,7 +68,7 @@ router.get('/user/:id/score', async (req, res, next) => {
   })
   const correctAnswers = await UserAnswers.filter(answer => answer.correct === true)
   const score = await correctAnswers.length / UserAnswers.length
-  res.status(200).send({ score: score })
+  res.status(200).send({ score: `${Math.floor(score * 100)}%` })
 })
 
 //3
@@ -82,8 +82,8 @@ router.get('/userAnswer/user/:userId/category/:categoryId', (req, res, next) => 
   })
   .then(userAnswersByCategory => {
     const correctAnswers = userAnswersByCategory.filter(answer => answer.correct === true)
-    const score = correctAnswers.length / userAnswersByCategory.length
-    res.send(score)
+    const categoryScore = correctAnswers.length / userAnswersByCategory.length
+    res.send({ categoryScore: `${Math.floor(categoryScore * 100)}%` })
   })
   .catch(next)
 })
