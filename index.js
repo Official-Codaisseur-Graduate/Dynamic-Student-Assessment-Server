@@ -327,6 +327,30 @@ db
       questionId: 3,
       answerId: 4
     },
+    {
+      questionId: 5,
+      answerId: 3
+    },
+    {
+      questionId: 6,
+      answerId: 2
+    },
+    {
+      questionId: 7,
+      answerId: 2
+    },
+    {
+      questionId: 8,
+      answerId: 1
+    },
+    {
+      questionId: 9,
+      answerId: 3
+    },
+    {
+      questionId: 10,
+      answerId: 3
+    },
   ])
 })
 .catch(console.error)
