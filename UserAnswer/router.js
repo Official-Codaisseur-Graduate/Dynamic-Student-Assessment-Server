@@ -51,16 +51,25 @@ router.get('/userAnswer', (req, res, next) => {
 
 router.get('/userAnswer/user/:id', (req, res, next) => {
   UserAnswer
-  .findByPk(req.params.id)
-  .then(userAnswer => res.send(userAnswer))
+  .findAll({
+    where: {
+      userId: req.params.id
+    }
+  })
+  .then(userAnswers => res.send(userAnswers))
   .catch(next)
 })
 
 //3
-router.get('/userAnswer/user/:userId/:id', (req, res, next) => {
+router.get('/userAnswer/user/:userId/category/:categoryId', (req, res, next) => {
   UserAnswer
-  .findByPk(req.params.id)
-  .then(userAnswer => res.send(userAnswer))
+  .findAll({
+    where: {
+      userId: req.params.userId,
+      categoryId: req.params.categoryId
+    }
+  })
+  .then(userAnswers => res.send(userAnswers))
   .catch(next)
 })
 
