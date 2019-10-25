@@ -6,12 +6,24 @@ const Category = require('../Category/model')
 const router = new Router()
 const AdaptiveQuestionAlgorithm = require('../AdaptiveQuestionAlgorithm')
 
-router.post('/question', (req, res, next) => {
-  Question
-  .create(req.body)
-  .then(newQuestion => res.send(newQuestion))
-  .catch(next)
-})
+router.post('/question', async (req, res, next) => {
+    const { questionContent, categoryId } = req.body
+ 
+    if (questionContent && categoryId) {
+         const newQuestion = {
+            questionContent,
+             initialLevel: null,
+            calculatedLevel: null,
+            categoryId
+        }
+
+        await Question.create(newQuestion)
+        .then(result => res.status(201).json(result.id))
+        .catch(error => console.log('Error while creating new question: ', error))
+    } else {
+        res.status(400).send({'message' : 'Please complete all the required fields'})
+    }
+ })
 
 router.get('/question', (req, res, next) => {
   //pagination?
