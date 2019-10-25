@@ -1,7 +1,7 @@
 const { Router } = require('express')
 const Question = require('./model')
 const Answer = require('../Answer/model')
-const UserAnswer = require('../UserAnswers/model')
+const UserAnswer = require('../UserAnswer/model')
 const Category = require('../Category/model')
 const router = new Router()
 const AdaptiveQuestionAlgorithm = require('../AdaptiveQuestionAlgorithm')

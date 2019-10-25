@@ -2,6 +2,7 @@ const { Router } = require('express')
 const UserAnswer = require('./model')
 const router = new Router()
 
+// 1
 router.post('/userAnswer', async (req, res, next) => {
   try {
     const UserAnswer = await UserAnswer.create({
@@ -16,6 +17,7 @@ router.post('/userAnswer', async (req, res, next) => {
   }
 })
 
+// 2
 router.put('/userAnswer/:id', async (req, res, next) => {
   try {
     const UserAnswer = await UserAnswer.findByPk(req.params.id)
@@ -46,18 +48,11 @@ router.get('/userAnswer/user/:id', (req, res, next) => {
   .catch(next)
 })
 
+//3
 router.get('/userAnswer/user/:userId/:id', (req, res, next) => {
   UserAnswer
   .findByPk(req.params.id)
   .then(userAnswer => res.send(userAnswer))
-  .catch(next)
-})
-
-router.put('/userAnswer/:id', (req, res, next) => {
-  UserAnswer
-  .findByPk(req.params.id)
-  .then(userAnswer => res.send(userAnswer))
-  .then(userAnswer => res.status(201).send(userAnswer))
   .catch(next)
 })
 
