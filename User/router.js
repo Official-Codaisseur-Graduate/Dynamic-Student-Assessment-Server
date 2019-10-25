@@ -7,13 +7,18 @@ const router = new Router()
 
 router.post('/user', (req, res, next) => {
 
-  const { email, password, username } = req.body;
+  const { email, password, username, firstName, lastName, status, score, classNumber } = req.body;
   
   if (email && password && username) {
     const user = {
       email,
       password: bcrypt.hashSync(password, 10),
       username,
+      firstName,
+      lastName,
+      score,
+      status,
+      classNumber
     };
     User.findOne({
       where: { email },
