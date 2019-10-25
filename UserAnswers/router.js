@@ -6,9 +6,9 @@ router.post('/userAnswer', async (req, res, next) => {
   try {
     const UserAnswer = await UserAnswer.create({
       userId: req.body.user.userId,
-      questionId: req.body.questionId,
-      categoryId: req.body.categoryId,
-      correct: req.body.correct
+      questionId: req.body.answer.questionId,
+      categoryId: req.body.answer.categoryId,
+      correct: req.body.answer.correct
     })
     res.send(UserAnswer)
   }
