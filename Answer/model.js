@@ -6,10 +6,6 @@ const Answer = db.define('answer', {
   {
     type: Sequelize.STRING
   },
-  questionId:
-  {
-    type: Sequelize.INTEGER
-  },
   correct:
   {
     type: Sequelize.BOOLEAN

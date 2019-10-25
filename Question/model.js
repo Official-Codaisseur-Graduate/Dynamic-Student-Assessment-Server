@@ -18,8 +18,8 @@ const Question = db.define('question', {
     }
 })
 
-Question.hasMany(Answer)
 Question.belongsTo(Category)
+Question.hasMany(Answer)
 Answer.belongsTo(Question)
 Answer.belongsTo(Category)
 

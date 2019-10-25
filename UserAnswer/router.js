@@ -26,6 +26,7 @@ const router = new Router()
 // the req.params.id here is NOT the userAnswer id, but the id of the chosen answer in the front end
 router.put('/userAnswer/:id/:answerId', async (req, res, next) => {
   const chosenAnswer = await Answer.findByPk(req.params.answerId)
+  console.log('THIS IS THE CHOSENANSWER', chosenAnswer.dataValues)
   const correct = chosenAnswer.correct
   let userAnswer = await UserAnswer.findByPk(req.params.id)
   
@@ -41,8 +42,8 @@ router.put('/userAnswer/:id/:answerId', async (req, res, next) => {
   }
 
   const updatedUserAnswer = await userAnswer.update({
-    // categoryId: chosenAnswer.Category.id,
-    // questionId: chosenAnswer.Question.id,
+    // categoryId: chosenAnswer.categoryId,
+    questionId: chosenAnswer.questionId,
     answerId: req.params.answerId,
     correct: correct
   })
