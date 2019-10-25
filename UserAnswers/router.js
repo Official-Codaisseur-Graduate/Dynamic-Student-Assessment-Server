@@ -3,11 +3,18 @@ const UserAnswer = require('./model')
 const router = new Router()
 
 router.post('/userAnswer', async (req, res, next) => {
-  UserAnswer.create(req.body)   
-  .then(answer => {
-    res.send(answer)
-  })
-  .catch(next)
+  try {
+    const UserAnswer = await UserAnswer.create({
+      userId: req.body.user.userId,
+      questionId: req.body.questionId,
+      categoryId: req.body.categoryId,
+      correct: req.body.correct
+    })
+    res.send(UserAnswer)
+  }
+  catch(error) {
+    console.error(error)
+  }
 })
 
 router.get('/userAnswer', (req, res, next) => {
