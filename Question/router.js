@@ -21,10 +21,15 @@ router.get('/question', (req, res, next) => {
       .findAll({
             limit,
             offset,
-            include: [{
-                model: Category,
-                attributes: ['topic']
-            }]
+            include: [
+                {
+                    model: Category,
+                    attributes: ['topic']
+                },
+                {
+                    model: Answer,
+                },
+            ]
         })
       .then(questions => {
           if(!questions) {
