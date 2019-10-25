@@ -2,7 +2,7 @@ const { Router } = require('express')
 const UserAnswer = require('./model')
 const router = new Router()
 
-// 1
+// when getting a new question (front end), immediately create an 'empty' UserAnswer (to be updated later when answering the question)
 router.post('/userAnswer', (req, res, next) => {
   // this is the frontend way:
   // UserAnswer.create({
@@ -19,7 +19,7 @@ router.post('/userAnswer', (req, res, next) => {
   .catch(next)
 })
 
-// 2
+// here is where we actually update the 'correct' column when the question is answered.
 router.put('/userAnswer/:id', (req, res, next) => {
   UserAnswer.findByPk(req.params.id)
   .then(answer => {
@@ -39,6 +39,7 @@ router.put('/userAnswer/:id', (req, res, next) => {
   .catch(next)
 })
 
+//get all userAnswers of every user
 router.get('/userAnswer', (req, res, next) => {
   const limit = req.query.limit || 25
   const offset = req.query.offset || 0
@@ -49,6 +50,7 @@ router.get('/userAnswer', (req, res, next) => {
   .catch(next)
 })
 
+//get userAnswers of a specific user
 router.get('/userAnswer/user/:id', (req, res, next) => {
   UserAnswer
   .findAll({
@@ -60,6 +62,7 @@ router.get('/userAnswer/user/:id', (req, res, next) => {
   .catch(next)
 })
 
+//get main score of a user
 router.get('/user/:id/score', async (req, res, next) => {
   const UserAnswers = await UserAnswer.findAll({
     where: {
@@ -71,7 +74,7 @@ router.get('/user/:id/score', async (req, res, next) => {
   res.status(200).send({ score: `${Math.floor(score * 100)}%` })
 })
 
-//3
+//get score per category of one user
 router.get('/userAnswer/user/:userId/category/:categoryId', (req, res, next) => {
   UserAnswer
   .findAll({
