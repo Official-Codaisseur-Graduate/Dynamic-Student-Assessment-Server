@@ -319,19 +319,22 @@ db
       questionId: 1,
       answerId: 4,
       userId: 1,
-      categoryId: 2
+      categoryId: 2,
+      correct: true
     },
     {
       questionId: 2,
       answerId: 2,
       userId: 1,
-      categoryId: 1
+      categoryId: 1,
+      correct: true
     },
     {
       questionId: 3,
       answerId: 4,
       userId: 1,
-      categoryId: 5
+      categoryId: 5,
+      correct: true
     },
     {
       questionId: 5,

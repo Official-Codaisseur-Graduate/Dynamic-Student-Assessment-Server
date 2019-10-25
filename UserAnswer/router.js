@@ -60,6 +60,17 @@ router.get('/userAnswer/user/:id', (req, res, next) => {
   .catch(next)
 })
 
+router.get('/user/:id/score', async (req, res, next) => {
+  const UserAnswers = await UserAnswer.findAll({
+    where: {
+      userId: req.params.id
+    }
+  })
+  const correctAnswers = await UserAnswers.filter(answer => answer.correct === true)
+  const score = await correctAnswers.length / UserAnswers.length
+  res.status(200).send({ score: score })
+})
+
 //3
 router.get('/userAnswer/user/:userId/category/:categoryId', (req, res, next) => {
   UserAnswer
@@ -69,7 +80,11 @@ router.get('/userAnswer/user/:userId/category/:categoryId', (req, res, next) => 
       categoryId: req.params.categoryId
     }
   })
-  .then(userAnswers => res.send(userAnswers))
+  .then(userAnswersByCategory => {
+    const correctAnswers = userAnswersByCategory.filter(answer => answer.correct === true)
+    const score = correctAnswers.length / userAnswersByCategory.length
+    res.send(score)
+  })
   .catch(next)
 })
 
