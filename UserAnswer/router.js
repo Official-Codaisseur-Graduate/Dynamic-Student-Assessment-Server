@@ -3,32 +3,40 @@ const UserAnswer = require('./model')
 const router = new Router()
 
 // 1
-router.post('/userAnswer', async (req, res, next) => {
-  try {
-    const UserAnswer = await UserAnswer.create({
-      userId: req.body.user.userId,
-      questionId: req.body.answer.questionId,
-      categoryId: req.body.answer.categoryId,
-    })
-    res.send(UserAnswer)
-  }
-  catch(error) {
-    console.error(error)
-  }
+router.post('/userAnswer', (req, res, next) => {
+  // this is the frontend way:
+  // UserAnswer.create({
+    // userId: req.body.user.userId,
+    // questionId: req.body.answer.questionId,
+    // categoryId: req.body.answer.categoryId
+  // })
+
+  // this is the backend testing way:
+  UserAnswer.create(req.body)
+  .then(userAnswer => {
+    res.send(userAnswer)
+  })
+  .catch(next)
 })
 
 // 2
-router.put('/userAnswer/:id', async (req, res, next) => {
-  try {
-    const UserAnswer = await UserAnswer.findByPk(req.params.id)
-    const updatedAnswer = await UserAnswer.update({
-      correct: req.body.answer.correct
-    })
-    res.send(updatedAnswer)
-  }
-  catch(error) {
-    console.error(error)
-  }
+router.put('/userAnswer/:id', (req, res, next) => {
+  UserAnswer.findByPk(req.params.id)
+  .then(answer => {
+    // this is the frontend way:
+    // answer.update({
+    //   correct: req.body.answer.correct
+    // })
+
+    //this is the backend testing way:
+    answer.update(
+      req.body
+    )
+      .then(updatedAnswer => {
+        res.send(updatedAnswer)
+      })
+  })
+  .catch(next)
 })
 
 router.get('/userAnswer', (req, res, next) => {
