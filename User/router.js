@@ -53,12 +53,26 @@ router.post('/user', (req, res, next) => {
  });
 
  router.get('/user', (req, res, next) => {
-  const limit = req.query.limit || 25
-  const offset = req.query.offset || 0
-  
+
+  const limit = req.query.per_page
+  console.log("limit", limit)
+  const page = parseInt(req.query.page)
+  console.log("give me page ", page)
+  const skip = limit * page || 0
+  console.log("pskip", skip)
+  const offset = skip
+
   User
-   .findAll({limit, offset})
-   .then(user => res.send(user))
+   .findAll(
+     {limit, offset}
+          )
+   .then(user => res.send(
+     { 
+       page: page,
+       total: user.length,
+       data: user
+     }
+   ))
    .catch(next)
  })
 
