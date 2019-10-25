@@ -2,13 +2,14 @@ const { Router } = require('express')
 const UserAnswer = require('./model')
 const router = new Router()
 
-// when getting a new question (front end), immediately create an 'empty' UserAnswer (to be updated later when answering the question)
+// when getting a new question (front end), immediately create an 'empty' UserAnswer (to be updated later when actually answering the question)
+// this is so that the student can go back and change their answer
 router.post('/userAnswer', (req, res, next) => {
   // this is the frontend way:
   // UserAnswer.create({
     // userId: req.body.user.userId,
-    // questionId: req.body.answer.questionId,
-    // categoryId: req.body.answer.categoryId
+    // questionId: req.body.Question.id,
+    // categoryId: req.body.Category.id
   // })
 
   // this is the backend testing way:
@@ -20,23 +21,20 @@ router.post('/userAnswer', (req, res, next) => {
 })
 
 // here is where we actually update the 'correct' column when the question is answered.
-router.put('/userAnswer/:id', (req, res, next) => {
-  UserAnswer.findByPk(req.params.id)
-  .then(answer => {
+router.put('/userAnswer/:id', async (req, res, next) => {
+  const chosenAnswer = await Answer.findByPk(req.params.id)
+  const correct = chosenAnswer.correct
+  const userAnswer = UserAnswer.findByPk(req.params.id)
     // this is the frontend way:
     // answer.update({
     //   correct: req.body.answer.correct
     // })
 
     //this is the backend testing way:
-    answer.update(
-      req.body
-    )
-      .then(updatedAnswer => {
-        res.send(updatedAnswer)
-      })
+  const updatedAnswer = userAnswer.update({
+    correct: correct
   })
-  .catch(next)
+    res.send(updatedAnswer)
 })
 
 //get all userAnswers of every user
