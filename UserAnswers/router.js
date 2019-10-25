@@ -8,9 +8,21 @@ router.post('/userAnswer', async (req, res, next) => {
       userId: req.body.user.userId,
       questionId: req.body.answer.questionId,
       categoryId: req.body.answer.categoryId,
-      correct: req.body.answer.correct
     })
     res.send(UserAnswer)
+  }
+  catch(error) {
+    console.error(error)
+  }
+})
+
+router.put('/userAnswer/:id', async (req, res, next) => {
+  try {
+    const UserAnswer = await UserAnswer.findByPk(req.params.id)
+    const updatedAnswer = await UserAnswer.update({
+      correct: req.body.answer.correct
+    })
+    res.send(updatedAnswer)
   }
   catch(error) {
     console.error(error)
@@ -27,7 +39,14 @@ router.get('/userAnswer', (req, res, next) => {
   .catch(next)
 })
 
-router.get('/userAnswer/:id', (req, res, next) => {
+router.get('/userAnswer/user/:id', (req, res, next) => {
+  UserAnswer
+  .findByPk(req.params.id)
+  .then(userAnswer => res.send(userAnswer))
+  .catch(next)
+})
+
+router.get('/userAnswer/user/:userId/:id', (req, res, next) => {
   UserAnswer
   .findByPk(req.params.id)
   .then(userAnswer => res.send(userAnswer))
