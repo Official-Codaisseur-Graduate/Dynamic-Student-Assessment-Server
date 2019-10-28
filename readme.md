@@ -20,7 +20,8 @@ Which contains the end points and database models.
 
 ## Score:
 
-The score calculation is based on the correct answers divided by all the questions given.
+The main score calculation is based on the correct answers divided by all the questions given.
+The category score is the same, but then per category.
 
 **Important note!** :exclamation:
 
