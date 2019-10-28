@@ -20,6 +20,19 @@ Portal for the Codaisseur admissions team to manage applicants, scores and tests
 
 Which contains the end points and database models.
 
+## Score:
+
+The score calculation is based on the correct answers divided by all the questions given.
+
+**Important note!** :exclamation:
+
+When a student answers a question, the following happens in the backend:
+
+A put request to /userAnswer/:id/:answerId is made (currently in the req.body we expect an answerId which we can use in the backend). The reason why we don’t do a post request, is because in the scenario where a student wants to go back to change their answer, we don’t want to make another post request. So the strategy is to always make a request to update a UserAnswer.
+In the case of the first question of the test, obviously there is no UserAnswer yet to update. The logic behind the solution for this problem is that in this case we create an empty UserAnswer inside of the put endpoint. In this way we can later update the column ‘correct’ of that newly created UserAnswer to TRUE or FALSE.
+After this, a GET request is made to a new question. It looks at the previousAnswer, which we just provided. It runs through the algorithm and returns a new question. 
+
+
 ## SET UP PROJECT:
 
 In order to successfully use this server, you must install the following node_modules:
