@@ -19,24 +19,31 @@ router.post('/userAnswer', (req, res, next) => {
   .catch(next)
 })
 
-// here is where we actually update the 'correct' column when the question is answered.
-router.put('/userAnswer/:id', (req, res, next) => {
-  UserAnswer.findByPk(req.params.id)
-  .then(answer => {
-    // this is the frontend way:
-    // answer.update({
-    //   correct: req.body.answer.correct
-    // })
-
-    //this is the backend testing way:
-    answer.update(
+// the req.params.id here is NOT the userAnswer id, but the id of the chosen answer in the front end
+router.put('/userAnswer/:id/:answerId', async (req, res, next) => {
+  const chosenAnswer = await Answer.findByPk(req.params.answerId)
+  console.log('THIS IS THE CHOSENANSWER', chosenAnswer.dataValues)
+  const correct = chosenAnswer.correct
+  let userAnswer = await UserAnswer.findByPk(req.params.id)
+  
+  if(!userAnswer) {
+    userAnswer = await UserAnswer.create(
+      // {
+      // userId: req.body.user.userId,
+      // questionId: req.body.Question.id,
+      // categoryId: req.body.Category.id
+      // }
       req.body
     )
-      .then(updatedAnswer => {
-        res.send(updatedAnswer)
-      })
+  }
+
+  const updatedUserAnswer = await userAnswer.update({
+    // categoryId: chosenAnswer.categoryId,
+    questionId: chosenAnswer.questionId,
+    answerId: req.params.answerId,
+    correct: correct
   })
-  .catch(next)
+    res.send(updatedUserAnswer)
 })
 
 //get all userAnswers of every user
