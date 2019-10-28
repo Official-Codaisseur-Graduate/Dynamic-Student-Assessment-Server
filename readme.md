@@ -72,11 +72,15 @@ The algorithm is currently only being used in the GET endpoint that responds wit
 ## Server Contributors:
 
 Lucas Pascholatti:
+
 -Github: https://github.com/LPascholatti
+
 -Linkedin: https://www.linkedin.com/in/pascholatti/
 
 Zeger de Vos:
+
 -Github: https://github.com/zegenerative
+
 -Linkedin:
 
 ## Dynamic-Student-Assessment-Contributors:
