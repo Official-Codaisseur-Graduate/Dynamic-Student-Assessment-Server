@@ -26,7 +26,7 @@ router.post('/question', async (req, res, next) => {
  })
 
 router.get('/question', (req, res, next) => {
-  //pagination?
+  //intial setup for pagination?
   const limit = req.query.limit || 25
   const offset = req.query.offset || 0
   Question
