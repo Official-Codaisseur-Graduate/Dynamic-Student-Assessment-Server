@@ -18,6 +18,8 @@ Portal for the Codaisseur admissions team to manage applicants, scores and tests
 
 Which contains the end points and database models.
 
+### For more information about the endpoints and routers. Check our API docs `apidocs.js` in the ./docs folder.
+
 ## SET UP PROJECT:
 
 In order to successfully use this server, you must install the following node_modules:
