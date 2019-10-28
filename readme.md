@@ -5,9 +5,9 @@
  ## Project Overview:
 
 :man_technologist: 
-_The Dynamic-Student-Assessment is a project for Codaisseur. The aim is to accurately measure the level of Javascript of potential students who sign up for the coding bootcamp. Better assessments of students Javascript level before they start the course, should increase the Bootcamp completion rate. 
+*The Dynamic-Student-Assessment is a project for Codaisseur. The aim is to accurately measure the level of Javascript of potential students who sign up for the coding bootcamp. Better assessments of students Javascript level before they start the course, should increase the Bootcamp completion rate. 
  
-The test aims to measure students current level of Javascript and give recommendations based on the results. The questions should change in complexity based on the provided student answers and level_. :woman_technologist:
+The test aims to measure students current level of Javascript and give recommendations based on the results. The questions should change in complexity based on the provided student answers and level.* :woman_technologist:
  
 -Test Client: https://github.com/Official-Codaisseur-Graduate/Dynamic-Student-Assessment-Test-Client
 
@@ -20,6 +20,8 @@ Portal for the Codaisseur admissions team to manage applicants, scores and tests
 -Server: https://github.com/Official-Codaisseur-Graduate/Dynamic-Student-Assessment-Server
 
 Contains the end points and database models.
+
+## SET UP PROJECT:
 
 In order to successfully use this server, you must install the following node_modules:
 
@@ -51,16 +53,19 @@ In order to successfully use this server, you must install the following node_mo
 
  As a standard we are using port 4000 for this server.
 
-## Dummy Data:
+## TESTING:
 
-To add some dummy data to your database, you can checkout to the branch 'testing', using the following git command:
+To add some dummy data to your database, you can use our database import existent in the index.js.
 
-```
-git checkout dummy-data-testing
-```
+If you are currently running nodemon with the command, mentioned above, `nodemon index`, the dummy data will be automatically added to your database, otherwise, you can simply run `node index` in your terminal.
 
-If you are currently running nodemon with the command, mentioned above, `nodemon index`, the dummy data will be automatically added to your database, otherwise, you can simply run `node index` in your terminal. 
+**IMPORTANT:** In order not to execute any testings in the database,make sure to comment out the bulk creation in `index.js`, from line 22 up to line 792. Make sure that you have have set:
+
+```.sync({force: false})```
+
+In lines 22 in `index.js` and in line 12 of `db.js`.
 
 ## Adaptive-Question-Algorithm
 
-The Adaptive Question Algorithm works in two different .js files. The first is 'AdaptiveQuestionAlgorithm', which takes as a parameter the 'givenAnswer' from a userId into the database. Each given answer, if correct, will return a higger level to questions provided to the user. Which returns a 'newLevel' to the starter 'initialLevel'.
+Currently the algorithm takes a UserAnswer, checks if its related Answer is correct. If it is, the newLevel will be raised by 1. If not, it will output the initialLevel. 
+The algorithm is currently only being used in the GET endpoint that responds with a new question (so the new question is based on the previous UserAnswer).
