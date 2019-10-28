@@ -6,8 +6,6 @@ function AdaptiveQuestionAlgorithm(givenAnswer) {
             newLevel += 1
         }
 
-        //implement
-        //check frequency of answer (in)correct
         //check if pattern in answering related to category
 
         console.log('this is the new level', newLevel)
