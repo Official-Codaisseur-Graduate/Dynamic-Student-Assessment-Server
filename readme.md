@@ -58,7 +58,7 @@ To add some dummy data to your database, you can use our database import existen
 
 If you are currently running nodemon with the command, mentioned above, `nodemon index`, the dummy data will be automatically added to your database, otherwise, you can simply run `node index` in your terminal.
 
-**IMPORTANT:** :exclamation: In order not to execute any testings in the database,make sure to comment out the bulk creation in `index.js`, from line 22 up to line 792. Make sure that you have have set:
+**IMPORTANT:** :exclamation: In order not to execute any testings in the database, make sure to comment out the bulk creation in `index.js`, from line 22 up to line 792. Make sure that you have have set:
 
 ```.sync({force: false})```
 
@@ -68,3 +68,24 @@ In lines 22 in `index.js` and in line 12 of `db.js`.
 
 Currently the algorithm takes a UserAnswer, checks if its related Answer is correct. If it is, the newLevel will be raised by 1. If not, it will output the initialLevel. 
 The algorithm is currently only being used in the GET endpoint that responds with a new question (so the new question is based on the previous UserAnswer).
+
+## Server Contributors:
+
+Lucas Pascholatti:
+-Github: https://github.com/LPascholatti
+-Linkedin: https://www.linkedin.com/in/pascholatti/
+
+Zeger de Vos:
+-Github: https://github.com/zegenerative
+-Linkedin:
+
+## Dynamic-Student-Assessment-Contributors:
+
+#### Special thanks to:
+- **[Ivana H](https://github.com/future-ruins)**
+- **[Gerson Lynch](https://github.com/gersly)**
+- **[Zeger de Vos](https://github.com/zegenerative)**
+- **[Esther Hayward](https://github.com/eawh02)**
+- **[Lucas Pascholatti](https://github.com/LPascholatti)**
+- **[Andrea Cogo](https://github.com/anderara)**
+
