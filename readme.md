@@ -10,7 +10,7 @@ The test aims to measure students current level of Javascript and give recommend
  
 -Test Client: https://github.com/Official-Codaisseur-Graduate/Dynamic-Student-Assessment-Test-Client
 
-Focuses on the applicant UI and contains the login page and admissions test.
+That focuses on the applicant UI and contains the login page and admissions test.
  
 -Admin Client: https://github.com/Official-Codaisseur-Graduate/Dynamic-Student-Assessment-Admin-Client
 
@@ -18,7 +18,7 @@ Portal for the Codaisseur admissions team to manage applicants, scores and tests
  
 -Server: https://github.com/Official-Codaisseur-Graduate/Dynamic-Student-Assessment-Server
 
-Contains the end points and database models.
+Which contains the end points and database models.
 
 ## SET UP PROJECT:
 
