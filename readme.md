@@ -58,7 +58,7 @@ To add some dummy data to your database, you can use our database import existen
 
 If you are currently running nodemon with the command, mentioned above, `nodemon index`, the dummy data will be automatically added to your database, otherwise, you can simply run `node index` in your terminal.
 
-**IMPORTANT:** In order not to execute any testings in the database,make sure to comment out the bulk creation in `index.js`, from line 22 up to line 792. Make sure that you have have set:
+**IMPORTANT:** :exclamation: In order not to execute any testings in the database,make sure to comment out the bulk creation in `index.js`, from line 22 up to line 792. Make sure that you have have set:
 
 ```.sync({force: false})```
 
