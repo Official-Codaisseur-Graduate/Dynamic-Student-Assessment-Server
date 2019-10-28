@@ -3,7 +3,7 @@ const Category = require('./model')
 const router = new Router()
 
 router.get('/category', (req, res, next) => {
-    //pagination?
+    //initial setup for pagination 
     const limit = req.query.limit || 25
     const offset = req.query.offset || 0
 

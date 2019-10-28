@@ -2,16 +2,8 @@ const { Router } = require('express')
 const UserAnswer = require('./model')
 const router = new Router()
 
-// when getting a new question (front end), immediately create an 'empty' UserAnswer (to be updated later when answering the question)
+//we are actually not using this post endpoint (read important note in readme)
 router.post('/userAnswer', (req, res, next) => {
-  // this is the frontend way:
-  // UserAnswer.create({
-    // userId: req.body.user.userId,
-    // questionId: req.body.answer.questionId,
-    // categoryId: req.body.answer.categoryId
-  // })
-
-  // this is the backend testing way:
   UserAnswer.create(req.body)
   .then(userAnswer => {
     res.send(userAnswer)
@@ -19,26 +11,19 @@ router.post('/userAnswer', (req, res, next) => {
   .catch(next)
 })
 
-// the req.params.id here is NOT the userAnswer id, but the id of the chosen answer in the front end
+// the req.params.id here is NOT the UserAnswer id, but the id of the chosen answer in the front end
 router.put('/userAnswer/:id/:answerId', async (req, res, next) => {
   const chosenAnswer = await Answer.findByPk(req.params.answerId)
-  console.log('THIS IS THE CHOSENANSWER', chosenAnswer.dataValues)
   const correct = chosenAnswer.correct
   let userAnswer = await UserAnswer.findByPk(req.params.id)
   
   if(!userAnswer) {
-    userAnswer = await UserAnswer.create(
-      // {
-      // userId: req.body.user.userId,
-      // questionId: req.body.Question.id,
-      // categoryId: req.body.Category.id
-      // }
-      req.body
-    )
+    //you could also just make an empty UserAnswer without a req.body...
+    userAnswer = await UserAnswer.create(req.body)
   }
 
   const updatedUserAnswer = await userAnswer.update({
-    // categoryId: chosenAnswer.categoryId,
+    // categoryId: find a way to add this here,
     questionId: chosenAnswer.questionId,
     answerId: req.params.answerId,
     correct: correct
