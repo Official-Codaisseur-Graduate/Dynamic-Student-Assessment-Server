@@ -4,6 +4,16 @@
 
  The following endpoints are:
 
+ ## Set Up Database URL:
+
+ For this project we have used Postgres with a docker container. In line 3 of `db.js` you can use the variable databaseUrl to change the Postgres address of your preference.
+
+ ``` 
+ const databaseUrl =
+  process.env.DATABASE_URL ||
+  'postgres://postgres:secret@localhost:5432/postgres';
+```
+
  ## Category:
 
 -The Category model has one attribute 'topic', being a string. It can represent a topic of Javascript as a computer language, such as: functions, objetcs, variables, loops, if statements, etc.
