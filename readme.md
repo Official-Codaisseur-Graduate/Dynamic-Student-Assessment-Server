@@ -4,9 +4,9 @@
 
  ## Project Overview:
 
-_The Dynamic-Student-Assessment is a project for Codaisseur. The aim is to accurately measure the level of Javascript of potential students who sign up for the coding bootcamp. Better assessments of students Javascript level before they start the course, should increase the Bootcamp completion rate. 
+The Dynamic-Student-Assessment is a project for Codaisseur. The aim is to accurately measure the level of Javascript of potential students who sign up for the coding bootcamp. Better assessments of students Javascript level before they start the course, should increase the Bootcamp completion rate. 
  
-The test aims to measure students current level of Javascript and give recommendations based on the results. The questions should change in complexity based on the provided student answers and level_ . 
+The test aims to measure students current level of Javascript and give recommendations based on the results. The questions should change in complexity based on the provided student answers and level. 
  
 -Test Client: https://github.com/Official-Codaisseur-Graduate/Dynamic-Student-Assessment-Test-Client
 
