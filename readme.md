@@ -1,4 +1,4 @@
- # :man_technologist: Dynamic-Student-Assessment-Server Codaisseur :woman_technologist:
+ # Dynamic-Student-Assessment-Server Codaisseur
 
  ## This server has been developed for the Dynamic-Student-Assessment test applied by Codaisseur to candidates wishing to join the academy.
 
