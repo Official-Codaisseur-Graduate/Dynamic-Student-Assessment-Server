@@ -24,21 +24,13 @@ In order to successfully use this server, you must install the following node_mo
 
  - ExpressJs
  - Sequelize 
- - Postgres (including a local postgres server - Docker Postgres, for instance)
  - Cors 
  - JSON Body-Parser
  - Bcrypt
 
  In your terminal, run the following commands (we developed the project using 'npm'):
 
- `npm init -y`
- `npm i body-parser`
- `npm i express`
- `npm i sequelize`
- `npm i pg`
- `npm i cors`
- `npm i nodemon`
- `npm i bcrypt`
+ `npm install`
 
  To start the terminal with nodemon, use the following command:
 
