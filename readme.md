@@ -5,44 +5,47 @@
  ## Project Overview:
 
 The Dynamic-Student-Assessment is a project for Codaisseur. The aim is to improve the measurement of the level of knowledge of Javascript of future students prior to the bootcamp. By making the test adaptive, it provides a more accurate analysis of a students’ current level of Javascript.  By adaptive we mean that the test is dynamic. The questions change, based on the answering behaviour of the student. The final results of the test will provide more precise and personal recommendations for preparing for the academy and consequently increase the graduation rate.
+
+## Related repos
  
--Test Client: https://github.com/Official-Codaisseur-Graduate/Dynamic-Student-Assessment-Test-Client
+- Test Client: https://github.com/Official-Codaisseur-Graduate/Dynamic-Student-Assessment-Test-Client
 
 That focuses on the applicant UI and contains the login page and admissions test.
  
--Admin Client: https://github.com/Official-Codaisseur-Graduate/Dynamic-Student-Assessment-Admin-Client
+- Admin Client: https://github.com/Official-Codaisseur-Graduate/Dynamic-Student-Assessment-Admin-Client
 
 Portal for the Codaisseur admissions team to manage applicants, scores and tests.
  
--Server: https://github.com/Official-Codaisseur-Graduate/Dynamic-Student-Assessment-Server
+- Server: https://github.com/Official-Codaisseur-Graduate/Dynamic-Student-Assessment-Server
 
-Which contains the end points and database models.
+Which contains the end points and database models. (you are here!)
 
 ### For more information about the endpoints and routers. Check our API docs `apidocs.js` in the ./docs folder.
 
 ## SET UP PROJECT:
 
-In order to successfully use this server, you must install the following node_modules:
+1. Clone this repo
 
- - ExpressJs
- - Sequelize 
- - Cors 
- - JSON Body-Parser
- - Bcrypt
+2. In your terminal, run the following commands
 
- In your terminal, run the following commands (we developed the project using 'npm'):
+```
+npm install
+```
 
- `npm install`
+3. To start the terminal with nodemon, use the following command (assumes nodemon is installed globally)
 
- To start the terminal with nodemon, use the following command:
-
- `nodemon index`
+```
+nodemon index
+```
  
- To start the code without tracking saved changes, you can simply run:
+4. To start the code without tracking saved changes, you can simply run:
 
- `node index`
+```
+node index
+```
 
- As a standard we are using port 4000 for this server.
+As a standard we are using port 4000 for this server.
+
 
 ## TESTING:
 
