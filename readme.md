@@ -81,7 +81,7 @@ Zeger de Vos:
 
 -Github: https://github.com/zegenerative
 
--Linkedin:
+-Linkedin: https://www.linkedin.com/in/zegerdevos/
 
 ## Dynamic-Student-Assessment-Contributors:
 
