@@ -84,13 +84,11 @@ router.get('/question/:index', async (req, res, next) => {
             }]
         })
     
-        console.log('THIS IS THE PREVIOUS ANSWER', previousAnswer)
-    
-            //then put that previous answer in the algorithm and check if it was correct
+        //put that previous answer in the algorithm and check if it was correct
+        //(it returns a newLevel)
         newLevel = await AdaptiveQuestionAlgorithm(previousAnswer)
         
-        console.log('THIS IS THE NEW LEVEL', newLevel)
-        //lastly, return a new question, based on what the algortithm decides.
+        //lastly, return a new question, based on the level the algortithm decides
         const possibleNewQuestions = await Question.findAll({ 
             where: { 
                 initialLevel: newLevel,
@@ -106,12 +104,10 @@ router.get('/question/:index', async (req, res, next) => {
             ]
         })
         
-        console.log('THESE ARE THE POSSIBLE QUESTIONS', possibleNewQuestions.length)
         let randomNew  = Math.floor(Math.random() * Math.floor(possibleNewQuestions.length))
-        console.log('THIS IS THE RANDOM NUMBER', randomNew)
         const newQuestion = possibleNewQuestions[randomNew]
-        console.log('THIS IS THE NEW QUESTION', newQuestion)
 
+        //if this is the very first question of the test
         if(req.params.index !== 1) {
             res.send(newQuestion) 
         } else {
