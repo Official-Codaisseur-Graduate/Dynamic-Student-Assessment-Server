@@ -14,6 +14,21 @@ const databaseUrl =
  'postgres://postgres:secret@localhost:5432/postgres';
 ```
 
+## Database Schema
+
+Category has many Question
+Question has many Answer
+UserAnswer belongs to Answer
+UserAnswer belongs to User
+
+There are categories of questions,
+for example category "variable" has question "What is a variable"
+
+question has multiple answers, only one is true
+for example question "What is a variable" has answer "An element that stores something" which is true
+
+A userAnswer is when a user choose an answer, so it belongs to user and answer
+
 ## Category:
 
 -The Category model has one attribute 'topic', being a string. It can represent a topic of Javascript as a computer language, such as: functions, objetcs, variables, loops, if statements, etc.
