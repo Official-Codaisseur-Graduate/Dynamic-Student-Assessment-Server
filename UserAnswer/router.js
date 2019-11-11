@@ -1,5 +1,6 @@
 const { Router } = require("express")
 const UserAnswer = require("./model")
+const Answer = require("../Answer/model")
 const router = new Router()
 
 //we are actually not using this post endpoint (read important note in readme)
@@ -13,22 +14,26 @@ router.post("/userAnswer", (req, res, next) => {
 
 // the req.params.answerId here is NOT the UserAnswer id, but the id of the chosen answer in the front end
 router.put("/userAnswer/:id/:answerId", async (req, res, next) => {
-	const chosenAnswer = await Answer.findByPk(req.params.answerId)
-	const correct = chosenAnswer.correct
-	let userAnswer = await UserAnswer.findByPk(req.params.id)
+	try {
+		const chosenAnswer = await Answer.findByPk(req.params.answerId)
+		const correct = chosenAnswer.correct
+		let userAnswer = await UserAnswer.findByPk(req.params.id)
 
-	if (!userAnswer) {
-		//you could also just make an empty UserAnswer without a req.body...
-		userAnswer = await UserAnswer.create(req.body)
+		if (!userAnswer) {
+			//you could also just make an empty UserAnswer without a req.body...
+			userAnswer = await UserAnswer.create(req.body)
+		}
+
+		const updatedUserAnswer = await userAnswer.update({
+			// categoryId: find a way to add this here,
+			questionId: chosenAnswer.questionId,
+			answerId: req.params.answerId,
+			correct: correct
+		})
+		res.send(updatedUserAnswer)
+	} catch (error) {
+		next(error)
 	}
-
-	const updatedUserAnswer = await userAnswer.update({
-		// categoryId: find a way to add this here,
-		questionId: chosenAnswer.questionId,
-		answerId: req.params.answerId,
-		correct: correct
-	})
-	res.send(updatedUserAnswer)
 })
 
 //get all userAnswers of every user
