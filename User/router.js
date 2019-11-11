@@ -3,10 +3,12 @@ const User = require('./model')
 const Sequelize = require('sequelize')
 const bcrypt = require('bcrypt')
 const router = new Router()
+const auth = require('../Auth/middleware')
 
 
-router.post('/user', (req, res, next) => {
-
+router.post('/user', auth, (req, res, next) => {
+  console.log('testtest COMMING THROUGH!');
+  
   const { email, password, username, firstName, lastName, status, score, classNumber } = req.body;
   
   if (email && password && username) {
@@ -52,7 +54,7 @@ router.post('/user', (req, res, next) => {
   }
  });
 
- router.get('/user', (req, res, next) => {
+ router.get('/user', auth, (req, res, next) => {
 
   const limit = req.query.per_page
   console.log("limit", limit)
