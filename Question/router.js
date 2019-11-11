@@ -5,8 +5,9 @@ const UserAnswer = require('../UserAnswer/model')
 const Category = require('../Category/model')
 const router = new Router()
 const AdaptiveQuestionAlgorithm = require('../AdaptiveQuestionAlgorithm')
+const auth = require('../Auth/middleware')
 
-router.post('/question', async (req, res, next) => {
+router.post('/question', auth,  async (req, res, next) => {
     const { questionContent, categoryId } = req.body
  
     if (questionContent && categoryId) {
