@@ -1,6 +1,7 @@
 const { Router } = require("express")
 const UserAnswer = require("./model")
 const Answer = require("../Answer/model")
+const Question = require("../Question/model")
 const router = new Router()
 
 //we are actually not using this post endpoint (read important note in readme)
@@ -76,9 +77,21 @@ router.get(
 	"/userAnswer/user/:userId/category/:categoryId",
 	(req, res, next) => {
 		UserAnswer.findAll({
+			include: [
+				{
+					model: Answer,
+					include: [
+						{
+							model: Question,
+							where: {
+								categoryId: req.params.categoryId
+							}
+						}
+					]
+				}
+			],
 			where: {
-				userId: req.params.userId,
-				categoryId: req.params.categoryId
+				userId: req.params.userId
 			}
 		})
 			.then(userAnswersByCategory => {
