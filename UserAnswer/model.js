@@ -1,16 +1,15 @@
-const Sequelize = require('sequelize')
-const db = require('../db')
-const Answer = require('../Answer/model')
-const Question = require('../Question/model')
-const User = require('../User/model')
+const Sequelize = require("sequelize")
+const db = require("../db")
+const Answer = require("../Answer/model")
+const User = require("../User/model")
 
-const UserAnswer = db.define('UserAnswer', {
-  categoryId: Sequelize.INTEGER,
-  correct: Sequelize.BOOLEAN
+const UserAnswer = db.define("user_answer", {
+	correct: Sequelize.BOOLEAN
 })
 
-UserAnswer.belongsTo(User)
+Answer.hasMany(UserAnswer)
 UserAnswer.belongsTo(Answer)
-UserAnswer.belongsTo(Question)
+User.hasMany(UserAnswer)
+UserAnswer.belongsTo(User)
 
-module.exports = UserAnswer;
+module.exports = UserAnswer
