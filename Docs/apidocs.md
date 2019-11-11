@@ -1,24 +1,24 @@
- # Dynamic-Student-Assessment-Server Codaisseur
+# Dynamic-Student-Assessment-Server Codaisseur
 
- ## API DOCS:
+## API DOCS:
 
- The following endpoints are:
+The following endpoints are:
 
- ## Set Up Database URL:
+## Set Up Database URL:
 
- For this project we have used Postgres with a docker container. In line 3 of `db.js` you can use the variable databaseUrl to change the Postgres address of your preference.
+For this project we have used Postgres with a docker container. In line 3 of `db.js` you can use the variable databaseUrl to change the Postgres address of your preference.
 
- ``` 
- const databaseUrl =
-  process.env.DATABASE_URL ||
-  'postgres://postgres:secret@localhost:5432/postgres';
+```
+const databaseUrl =
+ process.env.DATABASE_URL ||
+ 'postgres://postgres:secret@localhost:5432/postgres';
 ```
 
- ## Category:
+## Category:
 
 -The Category model has one attribute 'topic', being a string. It can represent a topic of Javascript as a computer language, such as: functions, objetcs, variables, loops, if statements, etc.
 
-**GET**: You can send a http request to the endpoint 
+**GET**: You can send a http request to the endpoint
 '/category' to read all the topics in category, with their respective 'id'. The pagination's limit is set to 25 but it can be changed by the query itself, using request.query.limit/offset.
 
 **POST**: You can send a post request to '/category', the request.body will be a 'topic'. A post request to '/category' automatically generates a 'createdAt' and 'updatedAt' time stamp.
@@ -31,8 +31,8 @@
 
 -The Question model has the following attributes: i) "content", the question in itself, it's text/string; ii) 'initialLevel', a number that represents how hard is that question.
 
-**GET**: You can send an http request to the endpoint 
-'/question' to read all the topics in category, with their respective 'id'. The pagination's limit is set to 25 but it can be changed by the query itself, using request.query.limit/offset. 
+**GET**: You can send an http request to the endpoint
+'/question' to read all the questions, with their respective 'id'. The pagination's limit is set to 25 but it can be changed by the query itself, using request.query.limit/offset.
 
 Response Sample:
 
@@ -51,7 +51,36 @@ Response Sample:
 ```
 
 **GET - '/question/:index'** A
-A get request to the endpoint '/question/:number' will return the index of a question in sequence, therefore '/question/1' will return the first question provided to a user and so on. 
+A get request to the endpoint '/question/:number' will return the index of a question in sequence, therefore '/question/1' will return the first question provided to a user and so on.
+
+... includeing category:{} and answers:[]
+
+```
+{
+    "answers": [
+        {
+            "answerContent": "It doesn’t return anything",
+            "categoryId": null,
+            "correct": true,
+            "createdAt": "2019-11-11T13:59:34.568Z",
+            "id": 4,
+            "questionId": 4,
+            "updatedAt": "2019-11-11T13:59:34.568Z"
+        },
+        //... and all other answer belongs to the question
+    ],
+    "calculatedLevel": 0,
+    "category": {
+        "topic": "Functions"
+    },
+    "categoryId": 2,
+    "createdAt": "2019-11-11T13:59:34.529Z",
+    "id": 4,
+    "initialLevel": 0,
+    "questionContent": "Function banana(a) { console.log(a + ‘world’) } What does this function return?",
+    "updatedAt": "2019-11-11T13:59:34.529Z"
+}
+```
 
 **PUT**: You can send update requests to '/question/:id'.
 
@@ -59,18 +88,19 @@ A get request to the endpoint '/question/:number' will return the index of a que
 
 **POST**: You can send a post request to '/question', the request.body will be take a 'content' a 'initialLevel' number, and a categoryId, which is the category's primary key. A post request to '/question' automatically generates a 'createdAt' and 'updatedAt' time stamp.
 
-**RELATIONS:** 
-1) For every 'question' we have several 'answers', that can be either true or false.
-2) Each question belongs to a specific 'category' of questions.
-3) Answers belong to Questions.
+**RELATIONS:**
+
+1. For every 'question' we have several 'answers', that can be either true or false.
+2. Each question belongs to a specific 'category' of questions.
+3. Answers belong to Questions.
 
 ## Answer
 
 -The Answer model belongs to Question and has as attributes the following: i) content, which is a string, ii) a questionId, indicating to each question that answer belongs to and iii) correct, which is a boolean, being either true or false.
 
-**POST**: You can send post requests to the endpoint '/answer/, being its body composed by a text 'content',a boolean indicating whether it's true or false and a questionId. A post request to '/answer' automatically generates a 'createdAt' and 'updatedAt' time stamp.
+**POST**: You can send post requests to the endpoint '/answer, being its body composed by a text 'content',a boolean indicating whether it's true or false and a questionId. A post request to '/answer' automatically generates a 'createdAt' and 'updatedAt' time stamp.
 
-**GET**: A get request to 'answer' will return a list with all the answers, limited to 25 as a standard but it can be changed by the query itself, using request.query.limit/offset. 
+**GET**: A get request to 'answer' will return a list with all the answers, limited to 25 as a standard but it can be changed by the query itself, using request.query.limit/offset.
 
 ```
 [
@@ -93,12 +123,12 @@ You can also make **GET** requests to '/answer/question/:id' endpoint to get all
 
 ## UserAnswer:
 
--The UserAnswer model connects the previous models together, taking a userId, part of a User model, included here, that takes a password, username and e-mail. 
+-The UserAnswer model connects the previous models together, taking a userId, part of a User model, included here, that takes a password, username and e-mail.
 
 **RELATIONS:**
 
-1) UserAnswer belongs to Answer
-2) UserAnswer, then, belongs to Question.
+1. UserAnswer belongs to Answer
+2. UserAnswer, then, belongs to Question.
 
 **POST**: You can send post requests with a UserAnswer to '/userAnswers', containing all the necessary user, answer and question ids.
 
@@ -115,7 +145,7 @@ You can also make **GET** requests to '/answer/question/:id' endpoint to get all
 You can perform two different types of requests to the '/user' endpoint:
 
 **POST:** You can post a new user containing an email, password and username as body.
- 
+
 **GET:** A sample get request to the '/user' endpoint will look like:
 
 ```
