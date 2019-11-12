@@ -11,6 +11,7 @@ const userAnswersRouter = require('./UserAnswer/router')
 const categoryRouter = require('./Category/router')
 const userRouter = require('./User/router')
 const login = require('./Auth/router')
+const bcrypt = require('bcrypt')
 
 const db = require('./db')
 const Question = require('./Question/model')
@@ -23,7 +24,8 @@ db
 .sync({force: true})
 .then( async () => {
   console.log('Database schema updated')
-  await User.bulkCreate([
+
+  const userList = [
     {
       firstName: "Middleton",
       lastName: "Hicks",
@@ -438,7 +440,15 @@ db
       score: 99,
       classNumber: 37
     }
-  ])
+  ]
+  const userList1 = userList.map(user => {
+          return {
+            ...user,
+            password: bcrypt.hashSync(user.password,10)
+          }
+  })
+  await User.bulkCreate(userList1)
+
   await Category.bulkCreate([
     {
       topic: 'Variables'
@@ -768,6 +778,7 @@ db
       userId: 1,
     },
   ])
+  
 })
 .catch(console.error)
 
