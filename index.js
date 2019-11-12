@@ -725,67 +725,47 @@ db
   ])
   await UserAnswer.bulkCreate([
     {
-      questionId: 1,
       answerId: 4,
       userId: 1,
-      categoryId: 2,
       correct: true
     },
     {
-      questionId: 2,
       answerId: 2,
       userId: 1,
-      categoryId: 1,
       correct: true
     },
     {
-      questionId: 3,
       answerId: 4,
       userId: 1,
-      categoryId: 5,
       correct: true
     },
     {
-      questionId: 5,
       answerId: 3,
       userId: 1,
-      categoryId: 3
     },
     {
-      questionId: 6,
       answerId: 2,
       userId: 1,
-      categoryId: 1
     },
     {
-      questionId: 7,
       answerId: 2,
       userId: 1,
-      categoryId: 6
     },
     {
-      questionId: 8,
       answerId: 1,
       userId: 1, 
-      categoryId: 1
     },
     {
-      questionId: 9,
       answerId: 3,
       userId: 1,
-      categoryId: 6
     },
     {
-      questionId: 10,
       answerId: 3,
       userId: 1,
-      categoryId: 3
     },
     {
-      questionId: 4,
       answerId: 3,
       userId: 1,
-      categoryId: 2
     },
   ])
 })

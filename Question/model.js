@@ -1,26 +1,20 @@
-const Sequelize = require('sequelize')
-const db = require('../db')
-const Answer = require('../Answer/model')
-const Category = require('../Category/model')
+const Sequelize = require("sequelize")
+const db = require("../db")
+const Category = require("../Category/model")
 
-const Question = db.define('question', {
-    questionContent: {
-        type: Sequelize.STRING
-    },
-    initialLevel: {
-        type: Sequelize.INTEGER
-    },
-    calculatedLevel: {
-        type: Sequelize.INTEGER
-    },
-    categoryId: {
-        type: Sequelize.INTEGER
-    }
+const Question = db.define("question", {
+	questionContent: {
+		type: Sequelize.STRING
+	},
+	initialLevel: {
+		type: Sequelize.INTEGER
+	},
+	calculatedLevel: {
+		type: Sequelize.INTEGER
+	}
 })
 
-Question.hasMany(Answer)
+Category.hasMany(Question)
 Question.belongsTo(Category)
-Answer.belongsTo(Question)
-Answer.belongsTo(Category)
 
 module.exports = Question

@@ -1,19 +1,16 @@
-const Sequelize = require('sequelize')
-const db = require('../db')
+const Sequelize = require("sequelize")
+const db = require("../db")
+const Question = require("../Question/model")
 
-const Answer = db.define('answer', {
-  answerContent: 
-  {
-    type: Sequelize.STRING
-  },
-  questionId:
-  {
-    type: Sequelize.INTEGER
-  },
-  correct:
-  {
-    type: Sequelize.BOOLEAN
-  }
+const Answer = db.define("answer", {
+	answerContent: {
+		type: Sequelize.STRING
+	},
+	correct: {
+		type: Sequelize.BOOLEAN
+	}
 })
+Question.hasMany(Answer)
+Answer.belongsTo(Question)
 
-module.exports = Answer;
+module.exports = Answer
