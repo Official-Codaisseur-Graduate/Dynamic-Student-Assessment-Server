@@ -51,6 +51,8 @@ As a standard we are using port 4000 for this server.
 
 To add some dummy data to your database, you can use our database import existent in the index.js.
 
+As the password is bcrypted in the database, You can use email: middletonhicks@assistix.com and password: Brainclip for logging in on the Admin-Client.
+
 If you are currently running nodemon with the command, mentioned above, `nodemon index`, the dummy data will be automatically added to your database, otherwise, you can simply run `node index` in your terminal.
 
 **IMPORTANT:** :exclamation: In order not to execute any testings in the database, make sure to comment out the bulk creation in `index.js`, from line 22 up to line 792. Make sure that you have have set:
