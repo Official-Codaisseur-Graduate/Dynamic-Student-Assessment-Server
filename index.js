@@ -441,7 +441,7 @@ db
       classNumber: 37
     }
   ]
-  const userList1 = await userList.map(user => {
+  const userList1 = userList.map(user => {
           return {
             ...user,
             password: bcrypt.hashSync(user.password,10)

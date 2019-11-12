@@ -33,6 +33,10 @@ const User = db.define('user', {
   score:
   {
     type: Sequelize.INTEGER
+  },
+  admin:{
+    type: Sequelize.BOOLEAN,
+    defaultValue: false
   }
 })
 
