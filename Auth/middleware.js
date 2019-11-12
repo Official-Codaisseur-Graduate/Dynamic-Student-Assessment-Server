@@ -9,7 +9,7 @@ function auth(req, res, next) {
   // get headers and split token from header
   const auth = req.headers.authorization && req.headers.authorization.split(' ');
   // check
-  // console.log(auth);
+  console.log(auth);
   if (auth && auth[0] === 'Bearer' && auth[1]) {
     try {
       // data is userId
