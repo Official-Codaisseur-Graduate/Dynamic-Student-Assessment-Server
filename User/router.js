@@ -55,27 +55,23 @@ router.post('/user', (req, res, next) => {
  });
 
  router.get('/user', (req, res, next) => {
-
   const limit = req.query.per_page
   console.log("limit", limit)
   const page = parseInt(req.query.page)
   console.log("give me page ", page)
-  const skip = limit * page || 0
-  console.log("pskip", skip)
-  const offset = skip
-
+  const offset = limit * ( page-1 ) || 0
+  console.log("offset", offset)
   User
-   .findAll(
-     {limit, offset}
-          )
-   .then(user => res.send(
-     { 
-       page: page,
-       total: user.length,
-       data: user
-     }
-   ))
-   .catch(next)
- })
+  .findAndCountAll( {limit, offset})
+  .then(user => {
+  res.send(
+  { 
+  page: page,
+  total: user.count,
+  data: user
+  }
+  )})
+  .catch(next)
+  })
 
  module.exports = router;
