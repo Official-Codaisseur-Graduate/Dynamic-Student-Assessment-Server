@@ -4,9 +4,10 @@ const Answer = require("../Answer/model")
 const UserAnswer = require("../UserAnswer/model")
 const Category = require("../Category/model")
 const router = new Router()
+const auth = require('../Auth/middleware')
 const AdaptiveQuestionAlgorithm = require("../AdaptiveQuestionAlgorithm")
 
-router.post("/question", async (req, res, next) => {
+router.post("/question", auth ,async (req, res, next) => {
 	const { questionContent, categoryId } = req.body
 
 	if (questionContent && categoryId) {
@@ -17,15 +18,17 @@ router.post("/question", async (req, res, next) => {
 			categoryId
 		}
 
+
 		await Question.create(newQuestion)
 			.then(result => res.status(201).json(result.id))
 			.catch(error => console.log("Error while creating new question: ", error))
 	} else {
 		res.status(400).send({ message: "Please complete all the required fields" })
 	}
+
 })
 
-router.get("/question", (req, res, next) => {
+router.get("/question", auth, (req, res, next) => {
 	//intial setup for pagination?
 	const limit = req.query.limit || 25
 	const offset = req.query.offset || 0
