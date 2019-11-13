@@ -12,6 +12,7 @@ const categoryRouter = require('./Category/router')
 const userRouter = require('./Interviewee/router')
 const login = require('./Auth/router')
 const bcrypt = require('bcrypt')
+const adminRouter = require('./Admin/router')
 
 const db = require('./db')
 const Question = require('./Question/model')
@@ -22,7 +23,7 @@ const Interviewee = require('./Interviewee/model')
 const Admin = require('./Admin/model')
 
 db
-.sync({force: true})
+.sync({force: false})
 .then( async () => {
   console.log('Database schema updated')
 //List of admins 
@@ -398,6 +399,7 @@ app.use(answersRouter)
 app.use(questionRouter)
 app.use(userAnswersRouter)
 app.use(categoryRouter)
+app.use(adminRouter)
 app.use(userRouter)
 app.use(login)
 

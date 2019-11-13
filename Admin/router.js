@@ -1,9 +1,16 @@
 const { Router } = require('express')
-const Admin = require('./model')
-const Sequelize = require('sequelize')
+const Admin = require('../Admin/model')
 const router = new Router()
+const bcrypt = require('bcrypt')
 
-router.post('/admin',(req,res,next) => {
+//Route for creating an admin while signin up
+router.post("/admin", (req, res, next) => {
     const email = req.body.email
-    const password = req.body.password
+    const password = bcrypt.hashSync(req.body.password,10)
+    Admin.create({email,password})
+    .then(admin => {
+		res.send(admin)
+	})
 })
+
+module.exports = router
