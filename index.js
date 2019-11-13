@@ -356,10 +356,28 @@ db.sync({ force: true })
 				correct: false
 			}
 		])
-
-		await Test.create({ score: 0, intervieweeId: 1 })
-
-		await Response.create({ testId: 1, answerId: 1 })
+		const testList = [
+			{
+				score: 0,
+				intervieweeId: 1
+			},
+			{
+				score: 0,
+				intervieweeId: 2
+			}
+		]
+		await Test.bulkCreate(testList)
+		const responseList = [
+			{
+				testId: 1,
+				answerId: 1
+			},
+			{
+				testId: 2,
+				answerId: 1
+			}
+		]
+		await Response.bulkCreate(responseList)
 		await UserAnswer.bulkCreate([
 			{
 				answerId: 4,
