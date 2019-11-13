@@ -1,6 +1,6 @@
 const { Router } = require('express');
 const { toJWT, toData } = require('./jwt');
-const User = require('../User/model');
+const User = require('../Interviewee/model');
 const bcrypt = require('bcrypt');
 //const auth = require('./middleware');
 
