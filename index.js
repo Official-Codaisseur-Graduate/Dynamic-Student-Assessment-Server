@@ -5,6 +5,7 @@ const bodyParser = require("body-parser")
 const jsonParser = bodyParser.json()
 const cors = require("cors")
 const corsMiddleware = cors()
+
 const answersRouter = require("./Answer/router")
 const questionRouter = require("./Question/router")
 const userAnswersRouter = require("./UserAnswer/router")
@@ -12,6 +13,7 @@ const categoryRouter = require("./Category/router")
 const userRouter = require("./Interviewee/router")
 const login = require("./Auth/router")
 const bcrypt = require("bcrypt")
+
 
 const db = require("./db")
 const Question = require("./Question/model")
@@ -46,6 +48,7 @@ db.sync({ force: true })
 			}
 		})
 		await Admin.bulkCreate(adminList1)
+
 
 		//Listof user/student/interviewee
 		const intervieweeList = [
@@ -407,6 +410,7 @@ app.use(answersRouter)
 app.use(questionRouter)
 app.use(userAnswersRouter)
 app.use(categoryRouter)
+app.use(adminRouter)
 app.use(userRouter)
 app.use(login)
 
