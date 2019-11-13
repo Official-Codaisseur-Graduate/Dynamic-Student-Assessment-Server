@@ -12,6 +12,7 @@ const userAnswersRouter = require("./UserAnswer/router")
 const categoryRouter = require("./Category/router")
 const userRouter = require("./Interviewee/router")
 const adminRouter = require("./Admin/router")
+const responseRouter = require("./Response/router")
 const login = require("./Auth/router")
 const bcrypt = require("bcrypt")
 
@@ -25,7 +26,7 @@ const Interviewee = require("./Interviewee/model")
 const Admin = require("./Admin/model")
 
 const Test = require("./Test/model")
-// const TestQuestion = require('./TestQuestion/model')
+const Response = require("./Response/model")
 
 db.sync({ force: true })
 	.then(async () => {
@@ -355,6 +356,10 @@ db.sync({ force: true })
 				correct: false
 			}
 		])
+
+		await Test.create({ score: 0, intervieweeId: 1 })
+
+		await Response.create({ testId: 1, answerId: 1 })
 		await UserAnswer.bulkCreate([
 			{
 				answerId: 4,
@@ -412,6 +417,7 @@ app.use(categoryRouter)
 app.use(adminRouter)
 app.use(userRouter)
 app.use(login)
+app.use(responseRouter)
 
 function onListen() {
 	console.log(`Server running on port ${port}`)
