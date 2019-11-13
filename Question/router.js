@@ -4,10 +4,10 @@ const Answer = require("../Answer/model")
 const UserAnswer = require("../UserAnswer/model")
 const Category = require("../Category/model")
 const router = new Router()
-const auth = require('../Auth/middleware')
+const auth = require("../Auth/middleware")
 const AdaptiveQuestionAlgorithm = require("../AdaptiveQuestionAlgorithm")
 
-router.post("/question", auth ,async (req, res, next) => {
+router.post("/question", auth, async (req, res, next) => {
 	const { questionContent, categoryId } = req.body
 
 	if (questionContent && categoryId) {
@@ -18,14 +18,12 @@ router.post("/question", auth ,async (req, res, next) => {
 			categoryId
 		}
 
-
 		await Question.create(newQuestion)
 			.then(result => res.status(201).json(result.id))
 			.catch(error => console.log("Error while creating new question: ", error))
 	} else {
 		res.status(400).send({ message: "Please complete all the required fields" })
 	}
-
 })
 
 router.get("/question", auth, (req, res, next) => {
@@ -77,12 +75,21 @@ router.get("/question/:index", async (req, res, next) => {
 			Math.random() * Math.floor(newQuestions.length)
 		)
 		const firstQuestion = newQuestions[randomFirst]
+		// This is wrong!! only the first random question is working.
 
 		const previousAnswer = await UserAnswer.findOne({
 			include: [
 				{
 					model: Answer,
 					attributes: ["correct", "questionId"],
+					// this is NOT Right previousQuestion is rondam so it should not be index - 1
+					// we should send the last answer together when we do request to get a random question
+					// request will include a AnswerId from where we can check the previous answer,
+					// so the request should take a query params that has answerId
+					// like http get "/question/:index?lastAnswerId=id
+					// or it makes more sense also user index as query parameter so it is
+					// more restful , and will not be confused with editing questin with id
+					// like when you do http put "/question/:id"
 					where: { questionId: req.params.index - 1 }
 				}
 			]
@@ -147,6 +154,21 @@ router.delete("/question/:id", (req, res, next) => {
 			res.status(200).send(`Destroyed question ${req.params.id}`)
 		}
 	})
+})
+
+// when user taking test need a new question
+// front end make a request as "baseurl/testquestion?previousAnswerId=id&perviousLevel=level"
+router.get("/test-question", async (req, res, next) => {
+	try {
+		// get previousAnswerId and previousLevel from request query params
+		const { previousAnswerId, previousLevel } = req.query
+		// is the previous Answer correct?
+		const { correct } = await Answer.findByPk(previousAnswerId)
+		// console.log("can we see if previous answer is correct?", correct)
+		res.send(correct)
+	} catch (error) {
+		next(error)
+	}
 })
 
 module.exports = router
