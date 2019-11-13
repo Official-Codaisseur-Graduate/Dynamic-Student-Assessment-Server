@@ -19,6 +19,8 @@ const Answer = require('./Answer/model')
 const UserAnswer = require('./UserAnswer/model')
 const Category = require('./Category/model')
 const User = require('./User/model')
+const Test = require('./Test/model')
+// const TestQuestion = require('./TestQuestion/model')
 
 db
 .sync({force: true})
