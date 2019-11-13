@@ -18,8 +18,13 @@ const Question = require('./Question/model')
 const Answer = require('./Answer/model')
 const UserAnswer = require('./UserAnswer/model')
 const Category = require('./Category/model')
+
 const Interviewee = require('./Interviewee/model')
 const Admin = require('./Admin/model')
+
+const Test = require('./Test/model')
+// const TestQuestion = require('./TestQuestion/model')
+
 
 db
 .sync({force: true})
