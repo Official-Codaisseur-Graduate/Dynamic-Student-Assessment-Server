@@ -1,5 +1,4 @@
 const { Router } = require("express")
-const Response = require("./model")
 const Answer = require("../Answer/model")
 const Test = require("../Test/model")
 const router = new Router()
