@@ -11,9 +11,9 @@ const questionRouter = require("./Question/router")
 const userAnswersRouter = require("./UserAnswer/router")
 const categoryRouter = require("./Category/router")
 const userRouter = require("./Interviewee/router")
+const adminRouter = require("./Admin/router")
 const login = require("./Auth/router")
 const bcrypt = require("bcrypt")
-
 
 const db = require("./db")
 const Question = require("./Question/model")
@@ -48,7 +48,6 @@ db.sync({ force: true })
 			}
 		})
 		await Admin.bulkCreate(adminList1)
-
 
 		//Listof user/student/interviewee
 		const intervieweeList = [
