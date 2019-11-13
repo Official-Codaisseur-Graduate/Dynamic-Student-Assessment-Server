@@ -16,6 +16,7 @@ router.post("/userAnswer", (req, res, next) => {
 // the req.params.answerId here is NOT the UserAnswer id, but the id of the chosen answer in the front end
 router.put("/userAnswer/:id/:answerId", async (req, res, next) => {
 	try {
+		console.log('checking req body',req.body)
 		const chosenAnswer = await Answer.findByPk(req.params.answerId)
 		const correct = chosenAnswer.correct
 		let userAnswer = await UserAnswer.findByPk(req.params.id)

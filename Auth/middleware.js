@@ -1,4 +1,4 @@
-const User = require('../User/model')
+const User = require('../Interviewee/model')
 
 // Get user id back out from token
 const { toData } = require('./jwt');
