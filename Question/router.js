@@ -157,15 +157,37 @@ router.delete("/question/:id", (req, res, next) => {
 })
 
 // when user taking test need a new question
-// front end make a request as "baseurl/testquestion?previousAnswerId=id&perviousLevel=level"
+// front end make a request as "baseurl/testquestion?previousAnswerId=id"
 router.get("/test-question", async (req, res, next) => {
 	try {
-		// get previousAnswerId and previousLevel from request query params
-		const { previousAnswerId, previousLevel } = req.query
-		// is the previous Answer correct?
-		const { correct } = await Answer.findByPk(previousAnswerId)
-		// console.log("can we see if previous answer is correct?", correct)
-		res.send(correct)
+		// get previousAnswerId  from request query params
+		const { previousAnswerId } = req.query
+		// find the previous answer and question
+		const previousAnswer = await Answer.findByPk(previousAnswerId, {
+			include: [Question]
+		})
+		// if there is no previous Answer, there is no previous Question
+		// then it is the first question
+
+		const previousQuestion = !previousAnswer ? null : previousAnswer.question
+		const correct = !previousAnswer ? false : previousAnswer.correct
+		// for first question, correct = false, previousLevel = 0
+		// get previousLevel and correctness and calculate level
+		const previousLevel = !previousQuestion ? 0 : previousQuestion.initialLevel
+		const level = !previousLevel
+			? 0
+			: correct
+			? Number(previousLevel) + 1
+			: Number(previousLevel)
+		// find a question of calculated difficulty level
+		const questions = await Question.findAll({
+			// when there are test model as well, you can exclude questions already in the test
+			where: { initialLevel: level }
+		})
+		// send back a random one
+		const question = questions[Math.floor(Math.random() * questions.length)]
+
+		res.send(question)
 	} catch (error) {
 		next(error)
 	}
