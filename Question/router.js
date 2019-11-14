@@ -80,6 +80,8 @@ router.delete("/question/:id", (req, res, next) => {
 	})
 })
 
+// Below can be deleted after combine with another endpoint
+
 // when user taking testId need a new question
 // send request with query params of testId and previousAnswerId
 // front end make a request as "baseurl/testquestion?testId=id&previousAnswerId=id"
