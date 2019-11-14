@@ -1,12 +1,12 @@
 const { Router } = require('express');
 const { toJWT, toData } = require('./jwt');
-const User = require('../Interviewee/model');
+const Admin = require('../Admin/model');
 const bcrypt = require('bcrypt');
 //const auth = require('./middleware');
 
 const router = new Router();
 
-router.post('/login', (req, res, next) => {
+router.post('/admin/login', (req, res, next) => {
   const email = req.body.email;
   const password = req.body.password;
   
@@ -15,7 +15,7 @@ router.post('/login', (req, res, next) => {
       message: 'Please supply a valid email and password',
     });
   } else {
-    User.findOne({
+    Admin.findOne({
       where: {
         email: email,
       },
@@ -28,7 +28,7 @@ router.post('/login', (req, res, next) => {
         }
         else if (bcrypt.compareSync(password, entity.password)) {
           res.send({
-            jwt: toJWT({ userId: entity.id }),
+            jwt: toJWT({ adminId: entity.id }),
           });
         } else {
           res.status(400).send({

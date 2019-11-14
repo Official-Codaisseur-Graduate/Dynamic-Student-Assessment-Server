@@ -1,6 +1,6 @@
 const Sequelize = require('sequelize')
 const db = require('../db')
-const User = require ('../User/model')
+const User = require ('../Interviewee/model')
 const Question = require("../Question/model")
 
 const Test = db.define('test', {
