@@ -26,7 +26,7 @@ router.post("/question", auth, async (req, res, next) => {
 		console.log('should be good:', newQuestion);
 		
 		await Question.create(newQuestion)
-			.then(result => res.status(201).json(result.id))
+			.then(result => res.status(201).json(result))
 			.catch(error => console.log("Error while creating new question: ", error))
 	} else {
 		console.log('something is wrong...');
