@@ -14,10 +14,14 @@ function auth(req, res, next) {
     try {
       // data is userId
       const data = toData(auth[1]);
+      console.log('DATA', data);
+      
       Admin.findByPk(data.adminId)
         .then(admin => {
-          if (!admin) return next('Admin does not exist');
-
+          if (!admin) {
+            console.log('admin should:', admin);
+            return next('Admin does not exist');
+          }
           req.admin = admin;
           next();
         })
