@@ -49,7 +49,8 @@ router.post("/response", async (req, res, next) => {
 				? Number(currentLevel)
 				: Number(currentLevel) + 1
 		// find questionIds of answers already in the test
-		const questionIds = answers.map(answer => answer.questionId)
+		const updatedAnswers = await test.getAnswers()
+		const questionIds = updatedAnswers.map(answer => answer.questionId)
 		// find all questions of newLevel excluding the ones already in questionIds
 
 		const questions = await Question.findAll({
