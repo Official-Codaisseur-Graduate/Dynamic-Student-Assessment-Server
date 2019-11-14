@@ -8,7 +8,7 @@ const Sequelize = require("sequelize")
 const Op = Sequelize.Op
 
 // when interviewee selected an answer for a test
-// send http put "baseUrl/response?testId=id&answerId=id"
+// send http post "baseUrl/response?testId=id&answerId=id"
 // it is going to find all the answers in the test,
 //	-if there is already an answer to the same question, replace the answer
 //  -else add the answer
