@@ -3,13 +3,12 @@ const Sequelize = require("sequelize")
 const Question = require("./model")
 const Answer = require("../Answer/model")
 const Test = require("../Test/model")
-// const UserAnswer = require("../UserAnswer/model")
 const Category = require("../Category/model")
 const router = new Router()
 const auth = require("../Auth/middleware")
 const { maxDifficultyLevel } = require("../constants")
 const Op = Sequelize.Op
-
+// create a new question
 router.post("/question", auth, async (req, res, next) => {
 	const { questionContent, categoryId } = req.body
 
@@ -28,7 +27,7 @@ router.post("/question", auth, async (req, res, next) => {
 		res.status(400).send({ message: "Please complete all the required fields" })
 	}
 })
-
+// get all the questions
 router.get("/question", auth, (req, res, next) => {
 	//intial setup for pagination?
 	const limit = req.query.limit || 25
@@ -55,75 +54,7 @@ router.get("/question", auth, (req, res, next) => {
 		})
 		.catch(next)
 })
-// router.get("/question/:index", async (req, res, next) => {
-// 	try {
-// 		let newLevel = 0
-
-// 		const newQuestions = await Question.findAll({
-// 			where: {
-// 				initialLevel: 0
-// 			},
-// 			include: [
-// 				{
-// 					model: Category,
-// 					attributes: ["topic"]
-// 				},
-// 				{
-// 					model: Answer
-// 				}
-// 			]
-// 		})
-// 		let randomFirst = Math.floor(
-// 			Math.random() * Math.floor(newQuestions.length)
-// 		)
-// 		const firstQuestion = newQuestions[randomFirst]
-
-// 		const previousAnswer = await UserAnswer.findOne({
-// 			include: [
-// 				{
-// 					model: Answer,
-// 					attributes: ["correct", "questionId"],
-// 					where: { questionId: req.params.index - 1 }
-// 				}
-// 			]
-// 		})
-
-// 		//put that previous answer in the algorithm and check if it was correct
-// 		//(it returns a newLevel)
-// 		newLevel = await AdaptiveQuestionAlgorithm(previousAnswer)
-
-// 		//lastly, return a new question, based on the level the algortithm decides
-// 		const possibleNewQuestions = await Question.findAll({
-// 			where: {
-// 				initialLevel: newLevel
-// 			},
-// 			include: [
-// 				{
-// 					model: Category,
-// 					attributes: ["topic"]
-// 				},
-// 				{
-// 					model: Answer
-// 				}
-// 			]
-// 		})
-
-// 		let randomNew = Math.floor(
-// 			Math.random() * Math.floor(possibleNewQuestions.length)
-// 		)
-// 		const newQuestion = possibleNewQuestions[randomNew]
-
-// 		//if this is the very first question of the test
-// 		if (req.params.index !== 1) {
-// 			res.send(newQuestion)
-// 		} else {
-// 			res.send(firstQuestion)
-// 		}
-// 	} catch (error) {
-// 		console.error(error)
-// 	}
-// })
-
+//Edit a question
 router.put("/question/:id", (req, res, next) => {
 	Question.findByPk(req.params.id)
 		.then(question => {
@@ -137,7 +68,7 @@ router.put("/question/:id", (req, res, next) => {
 		})
 		.catch(next)
 })
-
+//Delete a question
 router.delete("/question/:id", (req, res, next) => {
 	Question.findByPk(req.params.id).then(question => {
 		if (!question) {
@@ -148,6 +79,7 @@ router.delete("/question/:id", (req, res, next) => {
 		}
 	})
 })
+
 // when user taking testId need a new question
 // send request with query params of testId and previousAnswerId
 // front end make a request as "baseurl/testquestion?testId=id&previousAnswerId=id"
