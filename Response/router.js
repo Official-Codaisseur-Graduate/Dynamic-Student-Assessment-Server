@@ -21,9 +21,11 @@ router.post("/response", async (req, res, next) => {
 		const test = await Test.findByPk(testId)
 		const answers = await test.getAnswers()
 		// find the current answer provided
-		const currentAnswer = await Answer.findByPk(answerId, {
-			include: [Question]
-		})
+		const currentAnswer = isNaN(Number(answerId))
+			? null
+			: await Answer.findByPk(Number(answerId), {
+					include: [Question]
+			  })
 
 		// if currentAnswer does not exist, this is the first attempt to get a question
 		// there is an old answer to the same question
