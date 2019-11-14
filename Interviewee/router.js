@@ -1,74 +1,32 @@
 const { Router } = require('express')
 const Interviewee = require('./model')
-const Sequelize = require('sequelize')
-const bcrypt = require('bcrypt')
 const router = new Router()
 const auth = require('../Auth/middleware')
 
 
-router.post('/user', (req, res, next) => {
-  console.log('testtest COMMING THROUGH!');
+router.post('/interviewee', (req, res, next) => {
+  Interviewee.create(req.body)
+  .then(interviewee => {
+  res.send(interviewee)
+})
   
-  const { email, password, username, firstName, lastName, status, score, classNumber } = req.body;
-  
-  if (email && password && username) {
-    const user = {
-      email,
-      password: bcrypt.hashSync(password, 10),
-      username,
-      firstName,
-      lastName,
-      score,
-      status,
-      classNumber
-    };
-    User.findOne({
-      where: { email },
-      attributes: ['email'],
-    })
-      .then(result => {
-        if (result) {
-          res.status(400).send({ message: 'Email already in use' });
-        }
-      })
-      .then(() => {
-        return User.findOne({
-          where: { username: { [Sequelize.Op.iLike]: username } },
-          attributes: ['username'],
-        });
-      })
-      .then(result => {
-        if (result) {
-          res.status(400).send({ message: 'Username already in use' });
-        }
-      })
-      .then(() => {
-        return User.create(user);
-      })
-      .then(() => {
-        res.status(201).end();
-      })
-      .catch(console.error);
-  } else {
-    res.status(400).send({ message: 'Not all data provided' });
-  }
  });
 
- router.get('/user', (req, res, next) => {
+ router.get('/interviewee', (req, res, next) => {
   const limit = req.query.per_page
   console.log("limit", limit)
   const page = parseInt(req.query.page)
   console.log("give me page ", page)
   const offset = limit * ( page-1 ) || 0
   console.log("offset", offset)
-  User
+  Interviewee
   .findAndCountAll( {limit, offset})
-  .then(user => {
+  .then(interviewees => {
   res.send(
   { 
   page: page,
-  total: user.count,
-  data: user
+  total: interviewees.count,
+  data: interviewees
   }
   )})
   .catch(next)

@@ -1,4 +1,4 @@
-const User = require('../Interviewee/model')
+const Admin = require('../Admin/model')
 
 // Get user id back out from token
 const { toData } = require('./jwt');
@@ -14,11 +14,11 @@ function auth(req, res, next) {
     try {
       // data is userId
       const data = toData(auth[1]);
-      User.findByPk(data.userId)
-        .then(user => {
-          if (!user) return next('User does not exist');
+      Admin.findByPk(data.adminId)
+        .then(admin => {
+          if (!admin) return next('Admin does not exist');
 
-          req.user = user;
+          req.admin = admin;
           next();
         })
         .catch(next);
