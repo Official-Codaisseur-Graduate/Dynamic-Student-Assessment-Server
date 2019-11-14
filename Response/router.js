@@ -55,7 +55,8 @@ router.post("/response", async (req, res, next) => {
 			where: {
 				initialLevel: nextLevel,
 				id: { [Op.notIn]: questionIds }
-			}
+			},
+			include: [Answer]
 		})
 		// send back a random one
 		const question = questions[Math.floor(Math.random() * questions.length)]
