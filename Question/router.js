@@ -184,11 +184,9 @@ router.get("/test-question", async (req, res, next) => {
 				id: { [Op.notIn]: questionIds }
 			}
 		})
-		// // send back a random one
-		// const question = questions[Math.floor(Math.random() * questions.length)]
-		// res.send(`previousLevel ? ${previousLevel}`)
-		res.send(questions)
-		// res.send(`newLevel is ${level}`)
+		// send back a random one
+		const question = questions[Math.floor(Math.random() * questions.length)]
+		res.send(question)
 	} catch (error) {
 		next(error)
 	}
