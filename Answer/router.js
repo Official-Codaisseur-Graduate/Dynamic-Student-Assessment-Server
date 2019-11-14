@@ -2,10 +2,12 @@ const { Router } = require("express")
 const Answer = require("./model")
 const router = new Router()
 
-router.post("/answer", (req, res, next) => {
-	Answer.create(req.body)
-		.then(newAnswer => res.send(newAnswer))
-		.catch(next)
+router.post("/answer", async (req, res, next) => {
+	await Answer.bulkCreate(
+		req.body.map(answer => {
+			return { answerContent: answer.answer, correct: answer.correct, questionId: answer.questionId }
+		})
+	)
 })
 
 router.get("/answer", (req, res, next) => {

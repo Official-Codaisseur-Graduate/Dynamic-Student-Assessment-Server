@@ -10,20 +10,26 @@ const { maxDifficultyLevel } = require("../constants")
 const Op = Sequelize.Op
 // create a new question
 router.post("/question", auth, async (req, res, next) => {
-	const { questionContent, categoryId } = req.body
+	const { questionContent, categoryId, level } = req.body
 
+	console.log('add question:', questionContent, categoryId, level);
+	
 	if (questionContent && categoryId) {
+
 		const newQuestion = {
 			questionContent,
-			initialLevel: null,
+			initialLevel: level,
 			calculatedLevel: null,
 			categoryId
 		}
-
+		console.log('should be good:', newQuestion);
+		
 		await Question.create(newQuestion)
-			.then(result => res.status(201).json(result.id))
+			.then(result => res.status(201).json(result))
 			.catch(error => console.log("Error while creating new question: ", error))
 	} else {
+		console.log('something is wrong...');
+		
 		res.status(400).send({ message: "Please complete all the required fields" })
 	}
 })
