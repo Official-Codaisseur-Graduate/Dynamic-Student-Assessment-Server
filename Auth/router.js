@@ -29,7 +29,7 @@ router.post('/admin/login', (req, res, next) => {
         }
         else if (bcrypt.compareSync(password, entity.password)) {
           res.send({
-            jwt: toJWT({ userId: entity.id }),
+            jwt: toJWT({ adminId: entity.id }),
           });
         } else {
           res.status(400).send({
