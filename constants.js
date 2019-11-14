@@ -1,2 +1,2 @@
-const maxDifficultyLevel = 3
+const maxDifficultyLevel = 2
 module.exports = { maxDifficultyLevel }
