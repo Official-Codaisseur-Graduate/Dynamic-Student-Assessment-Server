@@ -442,3 +442,4 @@ function onListen() {
 }
 
 app.listen(port, onListen)
+module.exports = app

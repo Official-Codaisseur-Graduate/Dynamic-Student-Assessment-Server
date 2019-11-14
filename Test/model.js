@@ -1,14 +1,13 @@
 const Sequelize = require("sequelize")
 const db = require("../db")
 const Interviewee = require("../Interviewee/model")
-const Answer = require("../Answer/model")
 
 const Test = db.define("test", {
 	score: {
 		type: Sequelize.INTEGER
 	},
 	status: {
-		type: Sequelize.INTEGER
+		type: Sequelize.ENUM("waiting", "ready", "done")
 	}
 })
 
