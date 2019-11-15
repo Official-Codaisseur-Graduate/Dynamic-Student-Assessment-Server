@@ -4,7 +4,8 @@ const db = require("../db")
 const Interviewee = db.define("interviewee", {
 	email: {
 		type: Sequelize.STRING,
-		unique: true
+		unique: true,
+		allowNull: false
 	}
 })
 
