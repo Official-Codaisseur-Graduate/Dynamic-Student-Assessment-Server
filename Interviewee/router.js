@@ -26,7 +26,7 @@ router.post('/interviewee', (req, res, next) => {
   { 
   page: page,
   total: interviewees.count,
-  data: interviewees
+  rows: interviewees.rows
   }
   )})
   .catch(next)
