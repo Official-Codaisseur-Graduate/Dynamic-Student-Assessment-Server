@@ -22,11 +22,6 @@ router.post('/interviewee', (req, res, next) => {
 
   Interviewee.findAndCountAll({limit, offset})
       .then(interviewees => {
-      // res.send({ 
-      //     page: page,
-      //     total: interviewees.count,
-      //     data: interviewees
-      // })
       res.send({ 
         page: page,
         total: interviewees.count,
