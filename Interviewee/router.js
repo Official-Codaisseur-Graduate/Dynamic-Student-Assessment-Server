@@ -19,17 +19,17 @@ router.post('/interviewee', (req, res, next) => {
   console.log("give me page ", page)
   const offset = limit * ( page-1 ) || 0
   console.log("offset", offset)
-  Interviewee
-  .findAndCountAll( {limit, offset})
-  .then(interviewees => {
-  res.send(
-  { 
-  page: page,
-  total: interviewees.count,
-  data: interviewees
-  }
-  )})
-  .catch(next)
+
+  Interviewee.findAndCountAll({limit, offset})
+      .then(interviewees => {
+      res.send({ 
+        page: page,
+        total: interviewees.count,
+        rows: interviewees.rows
+    })
+    })
+      .catch(next)
+
   })
 
  module.exports = router;
