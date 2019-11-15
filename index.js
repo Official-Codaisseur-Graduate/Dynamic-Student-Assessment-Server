@@ -13,6 +13,7 @@ const categoryRouter = require("./Category/router")
 const intervieweeRouter = require("./Interviewee/router")
 const adminRouter = require("./Admin/router")
 const responseRouter = require("./Response/router")
+const testRouter = require('./Test/router')
 const login = require("./Auth/router")
 const bcrypt = require("bcrypt")
 
@@ -54,13 +55,9 @@ db.sync({ force: true })
 		const intervieweeList = [
 			{
 				email: "websterkirby@eargo.com",
-				code: "ABCD",
-				status: "1"
 			},
 			{
 				email: "bertabradley@isosure.com",
-				code: "EFGH",
-				status: "1"
 			}
 		]
 		await Interviewee.bulkCreate(intervieweeList)
@@ -436,6 +433,7 @@ app.use(adminRouter)
 app.use(intervieweeRouter)
 app.use(login)
 app.use(responseRouter)
+app.use(testRouter)
 
 function onListen() {
 	console.log(`Server running on port ${port}`)

@@ -9,7 +9,10 @@ const Test = db.define("test", {
 	},
 	status: {
 		type: Sequelize.INTEGER
-	}
+  },
+  code : {
+   type: Sequelize.STRING
+  }
 })
 
 // NEEDS TO BE CHANGED TO STUDENT I THINK
