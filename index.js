@@ -61,6 +61,31 @@ db.sync({ force: true })
 				email: "bertabradley@isosure.com",
 				code: "EFGH",
 				status: "1"
+			},
+			{
+				email: "hamsa@gmail.com",
+				code: "CBEF",
+				status: "2"
+			},
+			{
+				email: "kiran@gmail.com",
+				code: "CNWE",
+				status: "2"
+			},
+			{
+				email: "rohit@gmail.com",
+				code: "NCFE",
+				status: "1"
+			},
+			{
+				email: "amar@gmail.com",
+				code: "CNAS",
+				status: "1"
+			},
+			{
+				email: "hitler@gmail.com",
+				code: "NNBE",
+				status: "1"
 			}
 		]
 		await Interviewee.bulkCreate(intervieweeList)
