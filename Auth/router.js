@@ -48,13 +48,14 @@ router.post('/admin/login', (req, res, next) => {
 
 router.post('/interviewee/login', (req, res, next) => {
   const email = req.body.email;
-  const password = req.body.password;
-  
-  if (!email || !password) {
+  const code = req.body.code;
+  console.log('checking mail and code',email,code)
+  if (!email || !code) {
     res.status(400).send({
-      message: 'Please supply a valid email and password',
+      message: 'Please supply a valid email and code',
     });
   } else {
+    console.log('checking else part in the backend')
     Interviewee.findOne({
       where: {
         email: email,
@@ -66,9 +67,9 @@ router.post('/interviewee/login', (req, res, next) => {
             message: 'User with that email does not exist',
           });
         }
-        else if (bcrypt.compareSync(password, entity.password)) {
+        else if (entity.code) {
           res.send({
-            jwt: toJWT({ userId: entity.id }),
+            jwt: toJWT({ intervieweeId: entity.id }),
           });
         } else {
           res.status(400).send({
