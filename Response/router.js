@@ -21,9 +21,11 @@ router.post("/response", async (req, res, next) => {
 		const test = await Test.findByPk(testId)
 		const answers = await test.getAnswers()
 		// find the current answer provided
-		const currentAnswer = await Answer.findByPk(answerId, {
-			include: [Question]
-		})
+		const currentAnswer = isNaN(Number(answerId))
+			? null
+			: await Answer.findByPk(Number(answerId), {
+					include: [Question]
+			  })
 
 		// if currentAnswer does not exist, this is the first attempt to get a question
 		// there is an old answer to the same question
@@ -47,7 +49,8 @@ router.post("/response", async (req, res, next) => {
 				? Number(currentLevel)
 				: Number(currentLevel) + 1
 		// find questionIds of answers already in the test
-		const questionIds = answers.map(answer => answer.questionId)
+		const updatedAnswers = await test.getAnswers()
+		const questionIds = updatedAnswers.map(answer => answer.questionId)
 		// find all questions of newLevel excluding the ones already in questionIds
 
 		const questions = await Question.findAll({
@@ -55,7 +58,8 @@ router.post("/response", async (req, res, next) => {
 			where: {
 				initialLevel: nextLevel,
 				id: { [Op.notIn]: questionIds }
-			}
+			},
+			include: [Answer]
 		})
 		// send back a random one
 		const question = questions[Math.floor(Math.random() * questions.length)]
