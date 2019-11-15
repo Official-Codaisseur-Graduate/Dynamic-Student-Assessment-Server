@@ -1,11 +1,11 @@
-const Sequelize = require('sequelize')
-const db = require('../db')
+const Sequelize = require("sequelize")
+const db = require("../db")
 
-const Interviewee = db.define('interviewee', {
-  email:
-  {
-    type: Sequelize.STRING
-  },
+const Interviewee = db.define("interviewee", {
+	email: {
+		type: Sequelize.STRING,
+		unique: true
+	}
 })
 
-module.exports = Interviewee;
+module.exports = Interviewee
