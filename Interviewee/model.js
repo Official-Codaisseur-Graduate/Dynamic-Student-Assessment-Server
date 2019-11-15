@@ -6,14 +6,6 @@ const Interviewee = db.define('interviewee', {
   {
     type: Sequelize.STRING
   },
-  code:
-  {
-    type: Sequelize.STRING
-  },
-  status:
-  {
-    type: Sequelize.STRING
-  }
 })
 
 module.exports = Interviewee;
