@@ -11,10 +11,10 @@ const questionRouter = require("./Question/router")
 const userAnswersRouter = require("./UserAnswer/router")
 const categoryRouter = require("./Category/router")
 const intervieweeRouter = require("./Interviewee/router")
-const adminRouter = require('./Admin/router')
+const adminRouter = require("./Admin/router")
+const responseRouter = require("./Response/router")
 const login = require("./Auth/router")
 const bcrypt = require("bcrypt")
-
 
 const db = require("./db")
 const Question = require("./Question/model")
@@ -26,7 +26,7 @@ const Interviewee = require("./Interviewee/model")
 const Admin = require("./Admin/model")
 
 const Test = require("./Test/model")
-// const TestQuestion = require('./TestQuestion/model')
+const Response = require("./Response/model")
 
 db.sync({ force: true })
 	.then(async () => {
@@ -49,7 +49,6 @@ db.sync({ force: true })
 			}
 		})
 		await Admin.bulkCreate(adminList1)
-
 
 		//Listof user/student/interviewee
 		const intervieweeList = [
@@ -357,6 +356,28 @@ db.sync({ force: true })
 				correct: false
 			}
 		])
+		const testList = [
+			{
+				score: 0,
+				intervieweeId: 1
+			},
+			{
+				score: 0,
+				intervieweeId: 2
+			}
+		]
+		await Test.bulkCreate(testList)
+		const responseList = [
+			{
+				testId: 1,
+				answerId: 1
+			},
+			{
+				testId: 2,
+				answerId: 1
+			}
+		]
+		await Response.bulkCreate(responseList)
 		await UserAnswer.bulkCreate([
 			{
 				answerId: 4,
@@ -414,6 +435,7 @@ app.use(categoryRouter)
 app.use(adminRouter)
 app.use(intervieweeRouter)
 app.use(login)
+app.use(responseRouter)
 
 function onListen() {
 	console.log(`Server running on port ${port}`)
