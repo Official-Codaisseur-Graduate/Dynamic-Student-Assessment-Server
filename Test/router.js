@@ -7,7 +7,7 @@ router.post("/test", (req, res, next) => {
     const intervieweeId = req.query.intervieweeId;
     //checking for intervieweeId to be present
     console.log(intervieweeId);
-    
+
     if (intervieweeId) {
       // function to generate one time password
       const generateOTP = () => {
@@ -24,10 +24,30 @@ router.post("/test", (req, res, next) => {
         intervieweeId: intervieweeId,
         code: generateOTP()
       };
-     Test.create(data).then(res.send(data));
+      Test.create(data).then(res.send(data));
     }
   } catch (error) {
     next(error);
   }
 });
+
+router.get("/test/:code", (req, res, next) => {
+  console.log('CODE:', req.params.code);
+  Test.findOne({
+    where: {
+      code: req.params.code
+    }
+  })
+    .then(answer => {
+      if (!answer) {
+        res.status(400).send({
+          message: 'Code incorrect',
+        });
+      }
+      res.send(answer)
+    })
+    .catch(next)
+})
+
+
 module.exports = router

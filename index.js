@@ -383,10 +383,12 @@ db.sync({ force: true })
 		const testList = [
 			{
 				score: 0,
+				code: 'VqA9An',
 				intervieweeId: 1
 			},
 			{
 				score: 0,
+				code: 'Gc7oUZ',
 				intervieweeId: 2
 			}
 		]
