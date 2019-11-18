@@ -1,19 +1,6 @@
-const express = require("express")
-const app = express()
+const app = require("./app")
 const port = process.env.PORT || 4000
-const bodyParser = require("body-parser")
-const jsonParser = bodyParser.json()
-const cors = require("cors")
-const corsMiddleware = cors()
 
-const answersRouter = require("./Answer/router")
-const questionRouter = require("./Question/router")
-const categoryRouter = require("./Category/router")
-const intervieweeRouter = require("./Interviewee/router")
-const adminRouter = require("./Admin/router")
-const responseRouter = require("./Response/router")
-const testRouter = require("./Test/router")
-const loginRouter = require("./Auth/router")
 const bcrypt = require("bcrypt")
 
 const db = require("./db")
@@ -381,19 +368,6 @@ db.sync({ force: true })
 	})
 	.catch(console.error)
 
-app.use(corsMiddleware)
-app.use(jsonParser)
-app.use(answersRouter)
-app.use(questionRouter)
-app.use(categoryRouter)
-app.use(adminRouter)
-app.use(intervieweeRouter)
-app.use(loginRouter)
-app.use(responseRouter)
-app.use(testRouter)
-
-function onListen() {
+app.listen(port, () => {
 	console.log(`Server running on port ${port}`)
-}
-
-app.listen(port, onListen)
+})
