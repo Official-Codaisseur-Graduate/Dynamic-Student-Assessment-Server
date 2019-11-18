@@ -1,13 +1,10 @@
 const { Router } = require("express")
-const Sequelize = require("sequelize")
 const Question = require("./model")
 const Answer = require("../Answer/model")
-const Test = require("../Test/model")
 const Category = require("../Category/model")
 const router = new Router()
 const auth = require("../Auth/middleware")
-const { maxDifficultyLevel } = require("../constants")
-const Op = Sequelize.Op
+
 // create a new question
 router.post("/question", auth, async (req, res, next) => {
 	const { questionContent, categoryId, level } = req.body
