@@ -8,19 +8,17 @@ const corsMiddleware = cors()
 
 const answersRouter = require("./Answer/router")
 const questionRouter = require("./Question/router")
-const userAnswersRouter = require("./UserAnswer/router")
 const categoryRouter = require("./Category/router")
 const intervieweeRouter = require("./Interviewee/router")
 const adminRouter = require("./Admin/router")
 const responseRouter = require("./Response/router")
-const testRouter = require('./Test/router')
+const testRouter = require("./Test/router")
 const login = require("./Auth/router")
 const bcrypt = require("bcrypt")
 
 const db = require("./db")
 const Question = require("./Question/model")
 const Answer = require("./Answer/model")
-const UserAnswer = require("./UserAnswer/model")
 const Category = require("./Category/model")
 
 const Interviewee = require("./Interviewee/model")
@@ -54,7 +52,7 @@ db.sync({ force: true })
 		//Listof user/student/interviewee
 		const intervieweeList = [
 			{
-				email: "websterkirby@eargo.com",
+				email: "websterkirby@eargo.com"
 			},
 			{
 				email: "bertabradley@isosure.com",
@@ -402,51 +400,6 @@ db.sync({ force: true })
 			}
 		]
 		await Response.bulkCreate(responseList)
-		await UserAnswer.bulkCreate([
-			{
-				answerId: 4,
-				userId: 1,
-				correct: true
-			},
-			{
-				answerId: 2,
-				userId: 1,
-				correct: true
-			},
-			{
-				answerId: 4,
-				userId: 1,
-				correct: true
-			},
-			{
-				answerId: 3,
-				userId: 1
-			},
-			{
-				answerId: 2,
-				userId: 1
-			},
-			{
-				answerId: 2,
-				userId: 1
-			},
-			{
-				answerId: 1,
-				userId: 1
-			},
-			{
-				answerId: 3,
-				userId: 1
-			},
-			{
-				answerId: 3,
-				userId: 1
-			},
-			{
-				answerId: 3,
-				userId: 1
-			}
-		])
 	})
 	.catch(console.error)
 
@@ -454,7 +407,6 @@ app.use(corsMiddleware)
 app.use(jsonParser)
 app.use(answersRouter)
 app.use(questionRouter)
-app.use(userAnswersRouter)
 app.use(categoryRouter)
 app.use(adminRouter)
 app.use(intervieweeRouter)
