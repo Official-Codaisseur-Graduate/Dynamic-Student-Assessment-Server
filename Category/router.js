@@ -19,9 +19,11 @@ router.get("/category", (req, res, next) => {
 })
 
 router.post("/category", (req, res, next) => {
-	Category.create(req.body).then(category => {
-		res.send(category)
-	})
+	Category.create(req.body)
+		.then(category => {
+			res.send(category)
+		})
+		.catch(next)
 })
 
 router.put("/category/:id", (req, res, next) => {
@@ -39,14 +41,16 @@ router.put("/category/:id", (req, res, next) => {
 })
 
 router.delete("/category/:id", (req, res, next) => {
-	Category.findByPk(req.params.id).then(category => {
-		if (!category) {
-			res.status(404).send("Category not found")
-		} else {
-			category.destroy()
-			res.status(200).send("Destroyed")
-		}
-	})
+	Category.findByPk(req.params.id)
+		.then(category => {
+			if (!category) {
+				res.status(404).send("Category not found")
+			} else {
+				category.destroy()
+				res.status(200).send("Destroyed")
+			}
+		})
+		.catch(next)
 })
 
 module.exports = router
