@@ -4,10 +4,12 @@ const Category = require("../Category/model")
 
 const Question = db.define("question", {
 	questionContent: {
-		type: Sequelize.STRING
+		type: Sequelize.STRING,
+		allowNull: false
 	},
 	initialLevel: {
-		type: Sequelize.INTEGER
+		type: Sequelize.INTEGER,
+		allowNull: false
 	}
 })
 

@@ -7,31 +7,30 @@ const auth = require("../Auth/middleware")
 
 // create a new question
 router.post("/question", auth, async (req, res, next) => {
-	const { questionContent, categoryId, level } = req.body
+	try {
+		const { questionContent, categoryId, level } = req.body
 
-	console.log("add question:", questionContent, categoryId, level)
+		if (questionContent && categoryId) {
+			const newQuestion = {
+				questionContent,
+				initialLevel: level,
+				categoryId
+			}
 
-	if (questionContent && categoryId) {
-		const newQuestion = {
-			questionContent,
-			initialLevel: level,
-			calculatedLevel: null,
-			categoryId
+			const question = await Question.create(newQuestion)
+			if (!question) res.status(400).end()
+			res.status(201).send(question)
+		} else {
+			res
+				.status(400)
+				.send({ message: "Please complete all the required fields" })
 		}
-		console.log("should be good:", newQuestion)
-
-		await Question.create(newQuestion)
-			.then(result => res.status(201).json(result))
-			.catch(error => console.log("Error while creating new question: ", error))
-	} else {
-		console.log("something is wrong...")
-
-		res.status(400).send({ message: "Please complete all the required fields" })
+	} catch (error) {
+		next(error)
 	}
 })
 // get all the questions
 router.get("/question", auth, (req, res, next) => {
-	//intial setup for pagination?
 	const limit = req.query.limit || 25
 	const offset = req.query.offset || 0
 	Question.findAll({
@@ -72,14 +71,16 @@ router.put("/question/:id", (req, res, next) => {
 })
 //Delete a question
 router.delete("/question/:id", (req, res, next) => {
-	Question.findByPk(req.params.id).then(question => {
-		if (!question) {
-			res.status(404).send("question not found")
-		} else {
-			question.destroy()
-			res.status(200).send(`Destroyed question ${req.params.id}`)
-		}
-	})
+	Question.findByPk(req.params.id)
+		.then(question => {
+			if (!question) {
+				res.status(404).send("question not found")
+			} else {
+				question.destroy()
+				res.status(200).send(`Destroyed question ${req.params.id}`)
+			}
+		})
+		.catch(next)
 })
 
 module.exports = router
