@@ -31,7 +31,7 @@ db.sync({ force: true })
 	.then(async () => {
 		console.log("Database schema updated")
 		//List of admins
-		const adminList = [
+		const adminListPlainPassword = [
 			{
 				email: "middletonhicks@assistix.com",
 				password: "Brainclip"
@@ -41,13 +41,13 @@ db.sync({ force: true })
 				password: "Makingway"
 			}
 		]
-		const adminList1 = adminList.map(admin => {
+		const adminListHashedPassword = adminListPlainPassword.map(admin => {
 			return {
 				...admin,
 				password: bcrypt.hashSync(admin.password, 10)
 			}
 		})
-		await Admin.bulkCreate(adminList1)
+		await Admin.bulkCreate(adminListHashedPassword)
 
 		//Listof user/student/interviewee
 		const intervieweeList = [
