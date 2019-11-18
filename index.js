@@ -55,34 +55,22 @@ db.sync({ force: true })
 				email: "websterkirby@eargo.com"
 			},
 			{
-				email: "bertabradley@isosure.com",
-				code: "EFGH",
-				status: "1"
+				email: "bertabradley@isosure.com"
 			},
 			{
-				email: "hamsa@gmail.com",
-				code: "CBEF",
-				status: "2"
+				email: "hamsa@gmail.com"
 			},
 			{
-				email: "kiran@gmail.com",
-				code: "CNWE",
-				status: "2"
+				email: "kiran@gmail.com"
 			},
 			{
-				email: "rohit@gmail.com",
-				code: "NCFE",
-				status: "1"
+				email: "rohit@gmail.com"
 			},
 			{
-				email: "amar@gmail.com",
-				code: "CNAS",
-				status: "1"
+				email: "amar@gmail.com"
 			},
 			{
-				email: "hitler@gmail.com",
-				code: "NNBE",
-				status: "1"
+				email: "hitler@gmail.com"
 			}
 		]
 		await Interviewee.bulkCreate(intervieweeList)
