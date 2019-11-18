@@ -24,9 +24,11 @@ Which contains the end points and database models. (you are here!)
 
 ## SET UP PROJECT:
 
-1. Clone this repo
+1. Clone this repo 
 
-2. In your terminal, run the following commands
+`git clone https://github.com/Official-Codaisseur-Graduate/Dynamic-Student-Assessment-Server`
+
+2. In your terminal, run the following command to install all the dependencies
 
 ```
 npm install
