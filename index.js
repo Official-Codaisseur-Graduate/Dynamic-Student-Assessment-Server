@@ -99,67 +99,57 @@ db.sync({ force: true })
 			{
 				categoryId: 2,
 				questionContent: "What is a function?",
-				initialLevel: 1,
-				calculatedLevel: 0
+				initialLevel: 1
 			},
 			{
 				categoryId: 1,
 				questionContent: "What is a variable?",
-				initialLevel: 0,
-				calculatedLevel: 0
+				initialLevel: 0
 			},
 			{
 				categoryId: 5,
 				questionContent: "Let x = 13, b = ‘a’, c = x + b. What is c?",
-				initialLevel: 2,
-				calculatedLevel: 0
+				initialLevel: 2
 			},
 			{
 				categoryId: 2,
 				questionContent:
 					"Function banana(a) { console.log(a + ‘world’) } What does this function return?",
-				initialLevel: 0,
-				calculatedLevel: 0
+				initialLevel: 0
 			},
 			{
 				categoryId: 3,
 				questionContent: "Number is undefined’ What does ‘undefined’ mean?",
-				initialLevel: 1,
-				calculatedLevel: 0
+				initialLevel: 1
 			},
 			{
 				categoryId: 1,
 				questionContent:
 					"Declare a consistent variable b and assign it the value of 80",
-				initialLevel: 0,
-				calculatedLevel: 0
+				initialLevel: 0
 			},
 			{
 				categoryId: 6,
 				questionContent:
 					"What kind of statement is used to execute actions based on a trigger or condition?",
-				initialLevel: 2,
-				calculatedLevel: 0
+				initialLevel: 2
 			},
 			{
 				categoryId: 1,
 				questionContent:
 					"What is a JavaScript element that represents either TRUE or FALSE values?",
-				initialLevel: 1,
-				calculatedLevel: 0
+				initialLevel: 1
 			},
 			{
 				categoryId: 6,
 				questionContent:
 					"What is the name of the statement that is used to exit or end a loop?",
-				initialLevel: 0,
-				calculatedLevel: 0
+				initialLevel: 0
 			},
 			{
 				categoryId: 3,
 				questionContent: "What does JSON mean?",
-				initialLevel: 0,
-				calculatedLevel: 0
+				initialLevel: 0
 			}
 		])
 		await Answer.bulkCreate([

@@ -8,9 +8,6 @@ const Question = db.define("question", {
 	},
 	initialLevel: {
 		type: Sequelize.INTEGER
-	},
-	calculatedLevel: {
-		type: Sequelize.INTEGER
 	}
 })
 
