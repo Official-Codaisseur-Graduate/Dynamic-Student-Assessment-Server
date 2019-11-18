@@ -7,9 +7,11 @@ const bcrypt = require("bcrypt")
 router.post("/admin", (req, res, next) => {
 	const email = req.body.email
 	const password = bcrypt.hashSync(req.body.password, 10)
-	Admin.create({ email, password }).then(admin => {
-		res.status(201).send(admin)
-	})
+	Admin.create({ email, password })
+		.then(admin => {
+			res.status(201).send(admin)
+		})
+		.catch(next)
 })
 
 module.exports = router
