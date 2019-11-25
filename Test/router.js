@@ -1,13 +1,10 @@
-const { Router } = require("express");
-const Test = require("./model");
-const router = new Router();
+const { Router } = require("express")
+const Test = require("./model")
+const router = new Router()
 
 router.post("/test", (req, res, next) => {
   try {
     const intervieweeId = req.query.intervieweeId;
-    //checking for intervieweeId to be present
-    console.log(intervieweeId);
-
     if (intervieweeId) {
       // function to generate one time password
       const generateOTP = () => {
@@ -32,7 +29,6 @@ router.post("/test", (req, res, next) => {
 });
 
 router.get("/test/:code", (req, res, next) => {
-  console.log('CODE:', req.params.code);
   Test.findOne({
     where: {
       code: req.params.code

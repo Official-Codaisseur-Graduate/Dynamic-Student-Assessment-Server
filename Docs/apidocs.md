@@ -16,18 +16,67 @@ const databaseUrl =
 
 ## Database Schema
 
-Category has many Question
-Question has many Answer
-UserAnswer belongs to Answer
-UserAnswer belongs to User
+ONE TO MANY RELATION
+Category => Question => Answer
+Interviewee => Test
 
+Category has many Question
 There are categories of questions,
 for example category "variable" has question "What is a variable"
+
+Question has many Answer
 
 question has multiple answers, only one is true
 for example question "What is a variable" has answer "An element that stores something" which is true
 
-A userAnswer is when a user choose an answer, so it belongs to user and answer
+Interviewee has many Test
+an interviewee start doing a test that belongs to this interviewee
+
+MANY TO MANY RELATION
+test <=> response <=> answers
+
+Test has and belongs to many Answer through response
+Answer has and belongs to many Test through response
+Response is a joint table of Test Answer Relations.
+It is also a Model of itself
+
+## Response
+
+**POST**
+Most Important Endpoint for the App
+
+// when interviewee selected an answer for a test
+// send http put "baseUrl/response?testId=id&answerId=id"
+// it is going to find all the answers in the test,
+// -if there is already an answer to the same question, replace the answer
+// -else add the answer
+// after add the answer, response with a new question, that is of the new level and
+// is not a question already in the test
+
+## Admin
+
+email|password
+user accounts for admin client
+
+**POST** Route for creating an admin while signin up
+router.post("/admin")
+
+## Interviewee
+
+email
+interviewee account
+**POST**
+router.post("/interviewee")
+**GET**
+router.get("/interviewee")
+query params ?page=&per_page=
+
+## Test
+
+score|status|code
+**POST**
+router.post("/test")
+query params ?intervieweeId=
 
 ## Category:
 
@@ -65,38 +114,6 @@ Response Sample:
 ]
 ```
 
-**GET - '/question/:index'** A
-A get request to the endpoint '/question/:number' will return the index of a question in sequence, therefore '/question/1' will return the first question provided to a user and so on.
-
-... includeing category:{} and answers:[]
-
-```
-{
-    "answers": [
-        {
-            "answerContent": "It doesn’t return anything",
-            "categoryId": null,
-            "correct": true,
-            "createdAt": "2019-11-11T13:59:34.568Z",
-            "id": 4,
-            "questionId": 4,
-            "updatedAt": "2019-11-11T13:59:34.568Z"
-        },
-        //... and all other answer belongs to the question
-    ],
-    "calculatedLevel": 0,
-    "category": {
-        "topic": "Functions"
-    },
-    "categoryId": 2,
-    "createdAt": "2019-11-11T13:59:34.529Z",
-    "id": 4,
-    "initialLevel": 0,
-    "questionContent": "Function banana(a) { console.log(a + ‘world’) } What does this function return?",
-    "updatedAt": "2019-11-11T13:59:34.529Z"
-}
-```
-
 **PUT**: You can send update requests to '/question/:id'.
 
 **DELETE**: You can send delete requests to '/question/:id'.
@@ -113,7 +130,7 @@ A get request to the endpoint '/question/:number' will return the index of a que
 
 -The Answer model belongs to Question and has as attributes the following: i) content, which is a string, ii) a questionId, indicating to each question that answer belongs to and iii) correct, which is a boolean, being either true or false.
 
-**POST**: You can send post requests to the endpoint '/answer, being its body composed by a text 'content',a boolean indicating whether it's true or false and a questionId. A post request to '/answer' automatically generates a 'createdAt' and 'updatedAt' time stamp.
+**POST**: You can send post requests to the endpoint '/answer, being its body composed by a array of datatype answer {answerContent, correct, questionId}
 
 **GET**: A get request to 'answer' will return a list with all the answers, limited to 25 as a standard but it can be changed by the query itself, using request.query.limit/offset.
 
@@ -135,43 +152,3 @@ You can also make **GET** requests to '/answer/question/:id' endpoint to get all
 **PUT**: You can send update requests to '/answer/:id'.
 
 **DELETE**: You can send delete requests to '/answer/:id'.
-
-## UserAnswer:
-
--The UserAnswer model connects the previous models together, taking a userId, part of a User model, included here, that takes a password, username and e-mail.
-
-**RELATIONS:**
-
-1. UserAnswer belongs to Answer
-2. UserAnswer, then, belongs to Question.
-
-**POST**: You can send post requests with a UserAnswer to '/userAnswers', containing all the necessary user, answer and question ids.
-
-**GET**: The endpoint '/userAnswer' will return a list of userAnswers also limited to 25. You may also send a request to a specific userAnswer by id.
-
-**PUT**: You can send update requests to '/userAnswer/:id'.
-
-**DELETE**: You can send delete requests to '/userAnswer/:id'.
-
-## User:
-
--The user model currently receiving three different attributes: i) username, ii) email and iii) password, being the last one encrypted by Bcrypt.
-
-You can perform two different types of requests to the '/user' endpoint:
-
-**POST:** You can post a new user containing an email, password and username as body.
-
-**GET:** A sample get request to the '/user' endpoint will look like:
-
-```
-[
-    {
-        "createdAt": "2019-10-22T13:31:19.763Z",
-        "email": "rein@codaisseur.com",
-        "id": 1,
-        "password": "$2b$10$nC4AK41sB8Igsu/fB86eueAl0xK2FpcwjrZZ1F8Ui3Y2jG4459ECG",
-        "updatedAt": "2019-10-22T13:31:19.763Z",
-        "username": "Rein"
-    }
-]
-```

@@ -1,13 +1,23 @@
 const { Router } = require("express")
 const Answer = require("./model")
 const router = new Router()
-
+// req.body is an array of answers to be created in the backend
 router.post("/answer", async (req, res, next) => {
-	await Answer.bulkCreate(
-		req.body.map(answer => {
-			return { answerContent: answer.answer, correct: answer.correct, questionId: answer.questionId }
-		})
-	)
+	try {
+		const answers = await Answer.bulkCreate(
+			req.body.map(answer => {
+				return {
+					answerContent: answer.answer,
+					correct: answer.correct,
+					questionId: answer.questionId
+				}
+			})
+		)
+		if (!answers) res.status(400).end()
+		res.status(201).send(answers)
+	} catch (error) {
+		next(error)
+	}
 })
 
 router.get("/answer", (req, res, next) => {

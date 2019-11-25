@@ -4,10 +4,12 @@ const Question = require("../Question/model")
 
 const Answer = db.define("answer", {
 	answerContent: {
-		type: Sequelize.STRING
+		type: Sequelize.STRING,
+		allowNull: false
 	},
 	correct: {
-		type: Sequelize.BOOLEAN
+		type: Sequelize.BOOLEAN,
+		allowNull: false
 	}
 })
 Question.hasMany(Answer)
