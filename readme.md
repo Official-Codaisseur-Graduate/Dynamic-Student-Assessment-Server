@@ -24,9 +24,11 @@ Which contains the end points and database models. (you are here!)
 
 ## SET UP PROJECT:
 
-1. Clone this repo
+1. Clone this repo 
 
-2. In your terminal, run the following commands
+`git clone https://github.com/Official-Codaisseur-Graduate/Dynamic-Student-Assessment-Server`
+
+2. In your terminal, run the following command to install all the dependencies
 
 ```
 npm install
@@ -98,6 +100,8 @@ Zeger de Vos:
 ## Dynamic-Student-Assessment-Contributors:
 
 #### Special thanks to:
+Class 30:
+
 - **[Ivana H](https://github.com/future-ruins)**
 - **[Gerson Lynch](https://github.com/gersly)**
 - **[Zeger de Vos](https://github.com/zegenerative)**
@@ -105,3 +109,9 @@ Zeger de Vos:
 - **[Lucas Pascholatti](https://github.com/LPascholatti)**
 - **[Andrea Cogo](https://github.com/anderara)**
 
+Class 31: 
+- **[KumKum Singh](https://github.com/kumkumsingh)**
+- **[Yu Qi](https://github.com/qiyu1987)**
+- **[Stijn Blokker](https://github.com/stijnblokker)**
+- **[Evelina Wahlström](https://github.com/evelinawahlstrom)**
+- **[Sushmita BS](https://github.com/sushmitha-b-s)**
