@@ -1,6 +1,6 @@
-const { Router } = require("express")
-const Test = require("./model")
-const router = new Router()
+const { Router } = require("express");
+const Test = require("./model");
+const router = new Router();
 
 router.post("/test", (req, res, next) => {
   try {
@@ -37,13 +37,12 @@ router.get("/test/:code", (req, res, next) => {
     .then(answer => {
       if (!answer) {
         res.status(400).send({
-          message: 'Code incorrect',
+          message: "Code incorrect"
         });
       }
-      res.send(answer)
+      res.send(answer);
     })
-    .catch(next)
-})
+    .catch(next);
+});
 
-
-module.exports = router
+module.exports = router;
