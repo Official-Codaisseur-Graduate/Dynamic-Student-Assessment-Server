@@ -48,11 +48,12 @@ router.get("/answer/:id", (req, res, next) => {
 // update an array of answers
 router.put("/answers", async (req, res, next) => {
   try {
-    const currentAnswers = await Answer.destroy({
+    //deleting the old answers for a specific question
+    await Answer.destroy({
       where: { questionId: req.body[0].questionId }
     });
-    console.log("NUMBER OF DELETED ANSWERS:", currentAnswers);
 
+    //creating new answers (with bulkCreate we can create data from an array)
     const newAnswers = await Answer.bulkCreate(
       req.body.map(answer => {
         return {

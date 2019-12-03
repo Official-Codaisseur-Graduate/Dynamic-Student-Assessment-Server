@@ -90,7 +90,10 @@ router.delete("/question/:id", (req, res, next) => {
         res.status(404).send("question not found");
       } else {
         question.destroy();
-        res.status(200).send(`Destroyed question ${req.params.id}`);
+        Answer.destroy({ where: { questionId: req.params.id } });
+        res
+          .status(200)
+          .send(`Destroyed question ${req.params.id} including it's answers`);
       }
     })
     .catch(next);
