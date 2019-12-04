@@ -80,6 +80,7 @@ router.put("/question/:id", (req, res, next) => {
     })
     .catch(next);
 });
+
 //Delete a question
 router.delete("/question/:id", (req, res, next) => {
   Question.findByPk(req.params.id)

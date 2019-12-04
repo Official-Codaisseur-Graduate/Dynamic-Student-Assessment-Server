@@ -1,3 +1,4 @@
+const minDifficultyLevel = 0;
 const maxDifficultyLevel = 2;
 const db = require("./db");
 
@@ -27,4 +28,4 @@ async function successRate(questionId) {
   }
 }
 
-module.exports = { maxDifficultyLevel, successRate };
+module.exports = { maxDifficultyLevel, minDifficultyLevel, successRate };
