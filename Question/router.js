@@ -2,8 +2,9 @@ const { Router } = require("express");
 const Question = require("./model");
 const Answer = require("../Answer/model");
 const Category = require("../Category/model");
-const router = new Router();
 const auth = require("../Auth/middleware");
+const {successRate} = require("../constants")
+const router = new Router();
 
 // create a new question
 router.post("/question", auth, async (req, res, next) => {
@@ -29,57 +30,55 @@ router.post("/question", auth, async (req, res, next) => {
     next(error);
   }
 });
+
 // get all the questions
-router.get("/question", auth, (req, res, next) => {
-  const limit = req.query.limit || 25;
-  const offset = req.query.offset || 0;
-  Question.findAll({
-    limit,
-    offset,
-    include: [
-      {
-        model: Category,
-        attributes: ["topic"]
-      },
-      {
-        model: Answer
-      }
-    ]
-  })
-    .then(questions => {
-      if (!questions) {
-        res.status(404).send("No questions found");
+router.get("/question", auth, async (req, res, next) => {
+  try {
+    const limit = req.query.limit || 25;
+    const offset = req.query.offset || 0;
+    const questions = await Question.findAll({
+      limit,
+      offset,
+      include: [
+        {
+          model: Category,
+          attributes: ["topic"]
+        },
+        {
+          model: Answer
+        }
+      ]
+		});
+		
+    if (!questions) {
+      res.status(404).send("No questions found");
+    } else {
+      await Promise.all(
+        questions.map(async question => {
+          question.dataValues.successRate = await successRate(question.id);
+          return question;
+        })
+      );
+      res.send(questions);
+    }
+  } catch (error) {
+    next(error);
+  }
+});
+
+//Edit a question
+router.put("/question/:id", (req, res, next) => {
+  Question.findByPk(req.params.id)
+    .then(question => {
+      if (!question) {
+        res.status(404).send("question not found");
       } else {
-        return res.send(questions);
+        question.update(req.body).then(updatedQuestion => {
+          res.send(updatedQuestion);
+        });
       }
     })
     .catch(next);
-});
-//Edit a question
-router.put("/question/:id", (req, res, next) => {
-  const { questionContent, categoryId, level } = req.body;
-  if (questionContent && categoryId) {
-    const editedQuestion = {
-      questionContent,
-      initialLevel: level,
-      categoryId
-    };
-    Question.findByPk(req.params.id)
-      .then(question => {
-        if (!question) {
-          res.status(404).send("question not found");
-        } else {
-          question.update(editedQuestion).then(updatedQuestion => {
-            res.send(updatedQuestion);
-          });
-        }
-      })
-      .catch(next);
-  } else {
-    res
-      .status(400)
-      .send({ message: "Please complete all the required fields" });
-  }
 });
 
 //Delete a question
@@ -90,10 +89,7 @@ router.delete("/question/:id", (req, res, next) => {
         res.status(404).send("question not found");
       } else {
         question.destroy();
-        Answer.destroy({ where: { questionId: req.params.id } });
-        res
-          .status(200)
-          .send(`Destroyed question ${req.params.id} including it's answers`);
+        res.status(200).send(`Destroyed question ${req.params.id}`);
       }
     })
     .catch(next);
