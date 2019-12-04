@@ -6,6 +6,7 @@ const router = new Router();
 const { maxDifficultyLevel, minDifficultyLevel } = require("../constants");
 const Sequelize = require("sequelize");
 const Op = Sequelize.Op;
+const Response = require("../Response/model");
 
 // when interviewee selected an answer for a test
 // send http put "baseUrl/response?testId=id&answerId=id"
@@ -70,6 +71,40 @@ router.post("/response", async (req, res, next) => {
     // send back a random one
     const question = questions[Math.floor(Math.random() * questions.length)];
     res.send(question);
+  } catch (error) {
+    next(error);
+  }
+});
+
+router.get("/history/:testId", async (req, res, next) => {
+  try {
+    const history = await Response.findAll({
+      where: {
+        testId: req.params.testId
+      },
+      order: ["updatedAt"]
+    });
+    res.send(history);
+  } catch (error) {
+    next(error);
+  }
+});
+
+router.get("/load-prev/:answerId", async (req, res, next) => {
+  try {
+    const { answerId } = req.params;
+    const currentAnswer = await Answer.findOne({
+      where: {
+        id: answerId
+      }
+    });
+    const currentQuestion = await Question.findOne({
+      where: {
+        id: currentAnswer.questionId
+      },
+      include: [Answer]
+    });
+    res.send(currentQuestion);
   } catch (error) {
     next(error);
   }
