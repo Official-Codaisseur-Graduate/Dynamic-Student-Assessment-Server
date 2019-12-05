@@ -90,24 +90,4 @@ router.get("/history/:testId", async (req, res, next) => {
   }
 });
 
-router.get("/load-prev/:answerId", async (req, res, next) => {
-  try {
-    const { answerId } = req.params;
-    const currentAnswer = await Answer.findOne({
-      where: {
-        id: answerId
-      }
-    });
-    const currentQuestion = await Question.findOne({
-      where: {
-        id: currentAnswer.questionId
-      },
-      include: [Answer]
-    });
-    res.send(currentQuestion);
-  } catch (error) {
-    next(error);
-  }
-});
-
 module.exports = router;
