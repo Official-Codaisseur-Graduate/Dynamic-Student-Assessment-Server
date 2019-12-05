@@ -44,5 +44,15 @@ router.get("/test/:code", (req, res, next) => {
     })
     .catch(next);
 });
+router.put("/test/:code", (req, res, next) => {
+  Test.findOne({
+    where: {
+      code: req.params.code
+    }
+  })
+    .then(answer => answer.update(req.body))
+    .then(answer => res.send(answer))
+    .catch(next);
+});
 
 module.exports = router;
