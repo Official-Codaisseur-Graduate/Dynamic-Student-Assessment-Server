@@ -26,13 +26,13 @@ const {
 
 db.sync({ force: false })
   .then(async () => {
-    console.log("Database schema updated");
-    /* await Admin.bulkCreate(adminListHashedPassword);
-    await Interviewee.bulkCreate(intervieweeList);
-    await Category.bulkCreate(categoryList);
-    await Question.bulkCreate(questionList);
-    await Answer.bulkCreate(answerList);
-    await Test.bulkCreate(testList);
-    await Response.bulkCreate(responseList); */
+    // console.log("Database schema updated");
+    // await Admin.bulkCreate(adminListHashedPassword);
+    // await Interviewee.bulkCreate(intervieweeList);
+    // await Category.bulkCreate(categoryList);
+    // await Question.bulkCreate(questionList);
+    // await Answer.bulkCreate(answerList);
+    // await Test.bulkCreate(testList);
+    // await Response.bulkCreate(responseList);
   })
   .catch(console.error);
