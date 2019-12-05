@@ -100,4 +100,22 @@ router.put("/testscore/:id", (req, res, next) => {
   });
 });
 
+// get the score of an interviewee
+router.get("/test-result/:intervieweeId", (req, res, next) => {
+  Test.findOne({
+    where: {
+      intervieweeId: req.params.intervieweeId
+    }
+  })
+    .then(answer => {
+      if (!answer) {
+        res.status(400).send({
+          message: "No interviewee test result with such id"
+        });
+      }
+      res.send(answer);
+    })
+    .catch(next);
+});
+
 module.exports = router;
