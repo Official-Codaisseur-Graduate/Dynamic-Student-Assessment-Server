@@ -3,6 +3,8 @@ const Test = require("./model");
 const router = new Router();
 const Response = require("../Response/model");
 const { getCorrect } = require("../constants");
+const Question = require("../Question/model");
+const Answer = require("../Answer/model");
 
 router.post("/test", (req, res, next) => {
   try {
@@ -73,30 +75,42 @@ router.put("/testscore/:id", (req, res, next) => {
       });
     }
     const answerIds = answers.map(answer => answer.answerId);
-    getCorrect(answerIds)
-      .then(answers => {
-        const booleans = answers.map(answer => answer.correct);
-        let points = 0;
-        for (let i = 0; i < booleans.length; i++) {
-          if (booleans[i] === true) points++;
-        }
-        // console.log("pointsfromfunction", points, typeof points);
-        return points;
+    getCorrect(answerIds).then(answers => {
+      const booleans = answers.map(answer => answer.correct);
+      const booleanTrue = booleans.filter(boolean => boolean === true);
+
+      Answer.findAll({
+        where: { id: answerIds, correct: true },
+        include: [Question]
       })
-      .then(points =>
-        Test.update(
-          { score: points },
-          {
-            where: {
-              id: req.params.id
+        .then(answers => answers.map(answer => answer.question.initialLevel))
+        .then(level => {
+          let points = 0;
+          for (let i = 0; i < level.length; i++) {
+            if (booleanTrue && level[i] === 0) {
+              points = points + 1;
+            }
+            if (booleanTrue && level[i] === 1) {
+              points = points + 2;
+            }
+            if (booleanTrue && level[i] === 2) {
+              points = points + 3;
             }
           }
-        )
-          .then(test => {
-            res.send(test);
-          })
-          .catch(next)
-      );
+          return points;
+        })
+
+        .then(points =>
+          Test.update(
+            { score: points },
+            {
+              where: {
+                id: req.params.id
+              }
+            }
+          ).catch(next)
+        );
+    });
   });
 });
 
