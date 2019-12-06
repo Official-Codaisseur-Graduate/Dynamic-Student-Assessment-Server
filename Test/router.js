@@ -2,7 +2,8 @@ const { Router } = require("express");
 const Test = require("./model");
 const router = new Router();
 const Response = require("../Response/model");
-const { getCorrect } = require("../constants");
+const Question = require("../Question/model");
+const Answer = require("../Answer/model");
 
 router.post("/test", (req, res, next) => {
   try {
@@ -59,6 +60,8 @@ router.put("/test/:code", (req, res, next) => {
 
 //================================================
 
+//calculating score depending on questions level
+
 router.put("/testscore/:id", (req, res, next) => {
   const id = req.params.id;
 
@@ -66,23 +69,29 @@ router.put("/testscore/:id", (req, res, next) => {
     where: {
       testId: id
     }
-  }).then(answers => {
-    if (!answers) {
-      res.status(400).send({
-        message: "TestId incorrect"
-      });
-    }
-    const answerIds = answers.map(answer => answer.answerId);
-    getCorrect(answerIds)
-      .then(answers => {
-        const booleans = answers.map(answer => answer.correct);
+  }).then(response => {
+    const answerIds = response.map(response => response.answerId);
+    Answer.findAll({
+      where: { id: answerIds, correct: true },
+      include: [Question]
+    })
+      .then(answers => answers.map(answer => answer.question.initialLevel))
+      .then(level => {
         let points = 0;
-        for (let i = 0; i < booleans.length; i++) {
-          if (booleans[i] === true) points++;
+        for (let i = 0; i < level.length; i++) {
+          if (level[i] === 0) {
+            points = points + 1;
+          }
+          if (level[i] === 1) {
+            points = points + 2;
+          }
+          if (level[i] === 2) {
+            points = points + 3;
+          }
         }
-        // console.log("pointsfromfunction", points, typeof points);
         return points;
       })
+
       .then(points =>
         Test.update(
           { score: points },
@@ -91,11 +100,7 @@ router.put("/testscore/:id", (req, res, next) => {
               id: req.params.id
             }
           }
-        )
-          .then(test => {
-            res.send(test);
-          })
-          .catch(next)
+        ).catch(next)
       );
   });
 });

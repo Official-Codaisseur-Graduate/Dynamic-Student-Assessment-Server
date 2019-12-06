@@ -578,6 +578,10 @@ const testList = [
   {
     score: 0,
     intervieweeId: 2
+  },
+  {
+    score: 0,
+    intervieweeId: 3
   }
 ];
 const responseList = [
@@ -586,10 +590,61 @@ const responseList = [
     answerId: 1
   },
   {
+    testId: 1,
+    answerId: 8
+  },
+  {
+    testId: 1,
+    answerId: 9
+  },
+  {
+    testId: 1,
+    answerId: 13
+  },
+  {
+    testId: 1,
+    answerId: 17
+  },
+  {
     testId: 2,
-    answerId: 1
-  }
-];
+    answerId: 2
+  },
+  {
+    testId: 2,
+    answerId: 5
+  },
+  {
+    testId: 2,
+    answerId: 9
+  },
+  {
+    testId: 2,
+    answerId: 13
+  },
+  {
+    testId: 2,
+    answerId: 18
+  },
+  {
+    testId: 3,
+    answerId: 2
+  },
+  {
+    testId: 3,
+    answerId: 5
+  },
+  {
+    testId: 3,
+    answerId: 10
+  },
+  {
+    testId: 3,
+    answerId: 13
+  },
+  {
+    testId: 3,
+    answerId: 18
+  }];
 module.exports = {
   adminListHashedPassword,
   intervieweeList,
