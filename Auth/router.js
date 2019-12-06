@@ -23,7 +23,7 @@ router.post("/admin/login", (req, res) => {
 			.then(entity => {
 				if (!entity) {
 					res.status(400).send({
-						message: "User with that email does not exist"
+						message: "Those credentials don't exist"
 					})
 				} else if (bcrypt.compareSync(password, entity.password)) {
 					res.send({
@@ -31,7 +31,7 @@ router.post("/admin/login", (req, res) => {
 					})
 				} else {
 					res.status(400).send({
-						message: "Password was incorrect"
+						message: "Password or username is incorrect"
 					})
 				}
 			})
@@ -61,7 +61,7 @@ router.post("/interviewee/login", (req, res) => {
 			.then(entity => {
 				if (!entity) {
 					res.status(400).send({
-						message: "User with that email does not exist"
+						message: "Those credentials don't exist"
 					})
 				} else if (bcrypt.compareSync(password, entity.password)) {
 					res.send({
@@ -69,7 +69,7 @@ router.post("/interviewee/login", (req, res) => {
 					})
 				} else {
 					res.status(400).send({
-						message: "Password was incorrect"
+						message: "Password or username is incorrect"
 					})
 				}
 			})

@@ -22,7 +22,7 @@ async function successRate(questionId) {
   const correctAnswers = parseInt(resultCorrectAnswers[0][0].count);
 
   if (totalAnswers > 0 && correctAnswers > 0) {
-    return (correctAnswers / totalAnswers) * 100;
+    return Math.round((correctAnswers / totalAnswers) * 100);
   } else {
     return 0;
   }
