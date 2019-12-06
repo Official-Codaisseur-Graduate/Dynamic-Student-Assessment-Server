@@ -26,7 +26,7 @@ const {
 
 db.sync({ force: false })
   .then(async () => {
-    // console.log("Database schema updated");
+    console.log("Database schema updated");
     // await Admin.bulkCreate(adminListHashedPassword);
     // await Interviewee.bulkCreate(intervieweeList);
     // await Category.bulkCreate(categoryList);
