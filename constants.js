@@ -1,9 +1,6 @@
 const minDifficultyLevel = 0;
 const maxDifficultyLevel = 2;
-const Answer = require("./Answer/model");
 const db = require("./db");
-const Sequelize = require("sequelize");
-const Op = Sequelize.Op;
 
 // Two queries with SQL to show the percentage of students that answered the question correct, instead of Sequelize queries (explained in the READ ME)
 async function successRate(questionId) {
@@ -31,18 +28,7 @@ async function successRate(questionId) {
   }
 }
 
-function getCorrect(testAnswers) {
-  return Answer.findAll({
-    where: {
-      id: {
-        [Op.or]: testAnswers
-      }
-    }
-  });
-}
-
 module.exports = {
-  getCorrect,
   maxDifficultyLevel,
   minDifficultyLevel,
   successRate
