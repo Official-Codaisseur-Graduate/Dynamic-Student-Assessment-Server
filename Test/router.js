@@ -60,6 +60,8 @@ router.put("/test/:code", (req, res, next) => {
 
 //================================================
 
+//calculating score depending on questions level
+
 router.put("/testscore/:id", (req, res, next) => {
   const id = req.params.id;
 
