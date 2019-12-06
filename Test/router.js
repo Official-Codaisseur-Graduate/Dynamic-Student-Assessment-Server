@@ -97,27 +97,7 @@ router.put("/testscore/:id", (req, res, next) => {
               points = points + 3;
             }
           }
-          console.log("boolean", booleanTrue);
-
-          console.log("boolean", points);
-          console.log("boolean", level);
-
           return points;
-
-          //  booleans.find(boolean => boolean) === true) {
-          //     // if (level.map(lv => lv) === 0) {
-          //     //   return (points = points + 1);
-          //     // }
-          //     // if (level.map(lv => lv) === 1) {
-          //     //   return (points = points + 1);
-          //     // }
-          //     // points++;
-          //     // console.log("points", points);
-          //   }
-          // return points;
-          // if (booleans[i] === true && level[i] === 2) {
-          //   points = points + 1;
-          // }
         })
 
         .then(points =>
