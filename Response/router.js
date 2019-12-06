@@ -78,13 +78,43 @@ router.post("/response", async (req, res, next) => {
 
 router.get("/history/:testId", async (req, res, next) => {
   try {
+    // the history of answerIds submitted by the interviewee (an array of answers)
     const history = await Response.findAll({
       where: {
         testId: req.params.testId
       },
       order: ["updatedAt"]
     });
-    res.send(history);
+    // finding the answers that were answered
+    const answerArray = await Promise.all(
+      history.map(async answer => {
+        const answers = await Answer.findAll({
+          where: {
+            id: answer.answerId
+          }
+        });
+        return answers;
+      })
+    );
+    // finding all the answers from the same question
+    const questionArray = await Promise.all(
+      answerArray.map(async data => {
+        const questions = await Answer.findAll({
+          where: {
+            questionId: data[0].questionId
+          },
+          include: [Question]
+        });
+        // including the history of submitted answers inside the response
+        questions[0].dataValues.history = history.filter(
+          submitted => submitted.answerId === data[0].id
+        );
+        return questions;
+      })
+    );
+
+    // sending the questions from the test with all their answers
+    res.send(questionArray);
   } catch (error) {
     next(error);
   }
