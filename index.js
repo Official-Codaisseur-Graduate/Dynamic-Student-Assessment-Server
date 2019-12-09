@@ -34,6 +34,5 @@ db.sync({ force: false })
     // await Answer.bulkCreate(answerList);
     // await Test.bulkCreate(testList);
     // await Response.bulkCreate(responseList);
-
   })
   .catch(console.error);

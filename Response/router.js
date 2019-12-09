@@ -76,6 +76,8 @@ router.post("/response", async (req, res, next) => {
   }
 });
 
+// Getting the results submitted by the interviewee to show it on Test-Client
+// => including the answered questions and other possible answers.
 router.get("/history/:testId", async (req, res, next) => {
   try {
     // the history of answerIds submitted by the interviewee (an array of answers)
