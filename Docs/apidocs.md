@@ -46,7 +46,7 @@ It is also a Model of itself
 Most Important Endpoint for the App
 
 // when interviewee selected an answer for a test
-// send http put "baseUrl/response?testId=id&answerId=id"
+// send http post "baseUrl/response?testId=id&answerId=id"
 // it is going to find all the answers in the test,
 // -if there is already an answer to the same question, replace the answer
 // -else add the answer
@@ -83,13 +83,13 @@ router.post("/test")
 
 query params ?intervieweeId=
 
-POST: to generate new login code for the interviewee and create new test 
+generate new login code for the interviewee and create new test 
 
 **GET**
 
 router.get("/test/:code")
 
-GET: to get test related to the interviewee generated code
+get test related to the interviewee generated code
 
 **PUT**
 router.put("/test/:code")
@@ -111,7 +111,7 @@ if question level 2 add 3 point to the score
 
 router.get("/test-result/:intervieweeId")
 
-GET: to get test info for specific interviewee from it's id
+get test info for specific interviewee from it's id
 
 
 -
