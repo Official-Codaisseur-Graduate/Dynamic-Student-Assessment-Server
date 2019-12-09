@@ -66,8 +66,10 @@ router.post("/admin")
 email
 interviewee account
 **POST**
+
 router.post("/interviewee")
 **GET**
+
 router.get("/interviewee")
 query params ?page=&per_page=
 
@@ -92,12 +94,14 @@ router.get("/test/:code")
 get test related to the interviewee generated code
 
 **PUT**
+
 router.put("/test/:code")
 
 update the test row in the Test table
 
 
 **PUT**
+
 router.put("/testscore/:id")
 
 in this PUT route we are calculating the score depending on the quetion level 
