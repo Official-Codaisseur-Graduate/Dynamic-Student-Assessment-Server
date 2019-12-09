@@ -57,31 +57,32 @@ As the password is bcrypted in the database, You can use email: middletonhicks@a
 
 If you are currently running nodemon with the command, mentioned above, `nodemon index`, the dummy data will be automatically added to your database, otherwise, you can simply run `node index` in your terminal.
 
-**IMPORTANT:** :exclamation: In order not to execute any testings in the database, make sure to comment out the bulk creation in `index.js`, from line 22 up to line 792. Make sure that you have have set:
+**IMPORTANT:** :exclamation: In order not to execute any testings in the database, make sure to comment out the bulk creation in `index.js`, from line 30 up to line 36. Make sure that you have have set:
 
 ```.sync({force: false})```
 
-In lines 22 in `index.js` and in line 12 of `db.js`.
+In lines 27 in `index.js`.
 
 ## Score:
 
-The main score calculation is based on the correct answers divided by all the questions given.
-The category score is the same, but then per category.
+The main score calculation is based on the correct answers and question level see Test Router explanation in the **[apidocs.md](https://github.com/Official-Codaisseur-Graduate/Dynamic-Student-Assessment-Server/blob/development/Docs/apidocs.md)** 
+
 
 **Important note!** :exclamation:
 
 When a student answers a question, the following happens in the backend:
 
-1. A put request to /userAnswer/:id/:answerId is made (currently in the req.body we expect an answerId which we can use in the backend). The reason why we don’t do a post request, is because in the scenario where a student wants to go back to change their answer, we don’t want to make another post request. So the strategy is to always make a request to update a UserAnswer.
+1. A post request to /response/ is made (currently in the req.query we expect an answerId and an TestId  which we can use in the backend). 
 
-2. In the case of the first question of the test, obviously there is no UserAnswer yet to update. The logic behind the solution for this problem is that in this case we create an empty UserAnswer inside of the put endpoint. In this way we can later update the column ‘correct’ of that newly created UserAnswer to TRUE or FALSE.
+2. In the case of the first question of the test, obviously there is no answerId yet to update. The logic behind the solution for this problem is that in this case we create answerId which has value of null if there's no answer yet inside of the post endpoint
 
-3. After this, a GET request is made to a new question. It looks at the previousAnswer, which we just provided. It runs through the algorithm and returns a new question. 
+3. After this, a POST request is made to a new question. It looks at the previousAnswer, which we just provided. It runs through the algorithm and returns a new question. 
 
 ## Adaptive-Question-Algorithm
 
-Currently the algorithm takes a UserAnswer, checks if its related Answer is correct. If it is, the newLevel will be raised by 1. If not, it will output the initialLevel. 
-The algorithm is currently only being used in the GET endpoint that responds with a new question (so the new question is based on the previous UserAnswer).
+Currently the algorithm takes a UserAnswer/answerId, checks if its related Answer is correct. If it is, the newLevel will be raised by 1. If not, it will be decreased by 1. If you are at the max level(2) and the answer is correct, the level stays level(2), if not the level will be decreased by 1. If you are at level 0 and the answer is incorrect, the level stays at level(0). If correct the level will be raised by 1.
+
+The algorithm is currently only being used in the POST response endpoint that responds with a new question (so the new question is based on the previous UserAnswer/answerId).
 
 ## Server Contributors:
 
@@ -97,6 +98,22 @@ Zeger de Vos:
 
 -Linkedin: https://www.linkedin.com/in/zegerdevos/
 
+Adel Tancsik:
+
+-Github: https://github.com/adeltancsik
+
+Veronica H. Stigen:
+
+-Github: https://github.com/vhs2708
+
+Melissa 't Hart:
+
+-Github: https://github.com/MelissaDTH
+
+Mouaz Tabnja:
+
+-Github: https://github.com/mtabanja
+
 ## Dynamic-Student-Assessment-Contributors:
 
 #### Special thanks to:
@@ -110,8 +127,16 @@ Class 30:
 - **[Andrea Cogo](https://github.com/anderara)**
 
 Class 31: 
+
 - **[KumKum Singh](https://github.com/kumkumsingh)**
 - **[Yu Qi](https://github.com/qiyu1987)**
 - **[Stijn Blokker](https://github.com/stijnblokker)**
 - **[Evelina Wahlström](https://github.com/evelinawahlstrom)**
 - **[Sushmita BS](https://github.com/sushmitha-b-s)**
+
+Class 32:
+
+- **[Melissa 't Hart](https://github.com/MelissaDTH)**
+- **[Adel Tancsik](https://github.com/adeltancsik)**
+- **[Mouaz Tabanja](https://github.com/mtabanja)**
+- **[Veronica H. Stigen](https://github.com/vhs2708)**
