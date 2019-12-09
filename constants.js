@@ -2,7 +2,7 @@ const minDifficultyLevel = 0;
 const maxDifficultyLevel = 2;
 const db = require("./db");
 
-// Two queries with SQL to show the percentage of students that answered the question correct, instead of Sequelize queries (explained in the READ ME)
+// Two queries with SQL to show the percentage of students that correctly answered the question, instead of Sequelize (explained in `apidocs.js` in the ./docs folder)
 async function successRate(questionId) {
   const id = parseInt(questionId) || 0;
   let queryTotalAnswers = `SELECT count(*) `;

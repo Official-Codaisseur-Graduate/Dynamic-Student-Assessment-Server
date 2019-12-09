@@ -152,3 +152,23 @@ You can also make **GET** requests to '/answer/question/:id' endpoint to get all
 **PUT**: You can send update requests to '/answer/:id'.
 
 **DELETE**: You can send delete requests to '/answer/:id'.
+
+
+## Succes-Rate-Algorithm
+
+This is some additional information about the function 'succcesRate', which can be found in the _constants.js_ file. This function calculates the percentage of students that answered a specific question correctly (shown in Admin Client) and is used in the /question route. Many-to-many relations were introduced by the first group, and we encountered some problems trying to access the correct data with Sequelize. We ended up using SQL queries to get this function to work, here is a short summary:
+
+1. First the variable _'queryTotalAnswers'_ is created with a query to get the total answers given by students of that particular question (using question id). We use the responses table to get all the given answers. We then define a variable _'resultTotalAnswers'_ where we await the query to be finished. Finally, we create a variable _'totalAnswers'_ where we get the result of totalAnswers as a number. Note here: the response that we wanted, namely the count of the total amount of answers given, was an object in an array, in an array. This means we had to specifically target this with the following statement: 
+__resultTotalAnswers[0][0].count__.
+
+2. Then the variable _'queryCorrectAnswers'_ is created to make a SQL query where we get the answers given by students that were correct. Thus, in this query we use the question id again but also check if it was correct: 
+__WHERE a."questionId"=${id} AND a."correct"=TRUE__. Again, the count was an object in an array, in an array. 
+
+3. Now that we have those numbers, we can calculate the percentage (in the if statement).
+
+4. Finally, we use this function in the /question route where we map over all the questions. When querying to the database, the question object that is returned has the data from the db under the property dataValues. When the object is send as a response (to the frontend), the server only sends the dataValues property (which has all the data). If we want to send additional data, we can simply add this to the dataValues like so:
+
+``` javascript
+    question.dataValues.successRate = await successRate(question.id);
+```
+
