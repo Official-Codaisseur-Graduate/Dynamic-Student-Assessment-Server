@@ -53,6 +53,12 @@ Most Important Endpoint for the App
 // after add the answer, response with a new question, that is of the new level and
 // is not a question already in the test
 
+**GET**
+router.get("/history/:testId")
+We use it in Test-Client's results page, to display the submitted responses at the end of a test.
+- Including the answered questions and other possible answers.
+- Purpose: the interviewee can go through the questions with the interviewer, discuss the right answers if there was an incorrect choice.
+
 ## Admin
 
 email|password
