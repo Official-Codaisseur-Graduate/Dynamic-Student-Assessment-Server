@@ -71,12 +71,50 @@ router.post("/interviewee")
 router.get("/interviewee")
 query params ?page=&per_page=
 
+
 ## Test
 
-score|status|code
+Test table has score|status|code coloumns
+
+
 **POST**
+
 router.post("/test")
+
 query params ?intervieweeId=
+
+POST: to generate new login code for the interviewee and create new test 
+
+**GET**
+
+router.get("/test/:code")
+
+GET: to get test related to the interviewee generated code
+
+**PUT**
+router.put("/test/:code")
+
+PUT: to update the test row in the Test table
+
+
+**PUT**
+router.put("/testscore/:id")
+
+in this PUT route we are calculating the score depending on the quetion level 
+
+if question level 0 add 1 point to the score
+if question level 1 add 2 point to the score
+if question level 2 add 3 point to the score
+
+
+**GET**
+
+router.get("/test-result/:intervieweeId")
+
+GET: to get test info for specific interviewee from it's id
+
+
+-
 
 ## Category:
 
