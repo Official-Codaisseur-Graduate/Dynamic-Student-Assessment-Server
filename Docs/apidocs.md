@@ -94,7 +94,7 @@ get test related to the interviewee generated code
 **PUT**
 router.put("/test/:code")
 
-PUT: to update the test row in the Test table
+update the test row in the Test table
 
 
 **PUT**
