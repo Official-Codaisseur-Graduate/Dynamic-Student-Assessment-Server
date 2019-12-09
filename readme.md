@@ -34,13 +34,19 @@ Which contains the end points and database models. (you are here!)
 npm install
 ```
 
-3. To start the terminal with nodemon, use the following command (assumes nodemon is installed globally)
+3. Create a docker container
+
+```
+docker run -d -p 5432:5432 -e POSTGRES_PASSWORD=secret postgres
+```
+
+4. To start the terminal with nodemon, use the following command (assumes nodemon is installed globally)
 
 ```
 nodemon index
 ```
  
-4. To start the code without tracking saved changes, you can simply run:
+5. To start the code without tracking saved changes, you can simply run:
 
 ```
 node index
